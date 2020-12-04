@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Git学习笔记</title>
+    <url>/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="git-入门笔记"><a href="#git-入门笔记" class="headerlink" title="git 入门笔记"></a>git 入门笔记</h1><p>廖雪峰git教程的学习笔记</p>
+<h2 id="增删改的基本指令"><a href="#增删改的基本指令" class="headerlink" title="增删改的基本指令"></a>增删改的基本指令</h2><h3 id="增加一个文件与版本库"><a href="#增加一个文件与版本库" class="headerlink" title="增加一个文件与版本库"></a>增加一个文件与版本库</h3><pre><code class="bash">git init #初始化一个目录，会生成一个.git隐藏文件夹
+
+git add FILE #添加一个新文件或者修改的文件到暂存区
+
+git status # 可以查看当前暂存区的状态——哪些文件做了增删改
+
+git commit -m “提交说明” #将暂存区的文件提交到当前仓库</code></pre>
+<p>这里git add和git commit看起来很类似，这里就涉及到暂存区和仓库的概念，有必要区分一下。先说一下自己的理解，暂存区是到仓库的一个中间地带，add可以多次添加文件到缓存区，commit将缓存区中的文件一次性提交到仓库。那为什么要设置一个这样的中间地带呢？个人认为是为了二次确认。</p>
+<h3 id="版本库跳转"><a href="#版本库跳转" class="headerlink" title="版本库跳转"></a>版本库跳转</h3><p>git reset可以实现跳转到历史版本库，HEAD是当前版本库的指示标志，加一个^表示上一个版本库，加几个就表示上几个版本库，但一直加不方便，可以直接指定版本编号来跳转，版本编号若是忘记了，可以用git log来查看。</p>
+<pre><code class="bash">git reset --hard HEAD^ #跳转到上一个版本库，--hard一定要加，后面会说区别
+git reset --hard 1049  #跳转到特定版本库，版本编号为1049....，只需写前几位
+git log # 可以查看所有的git commit记录，忘记了编号时可以用git log查看</code></pre>
+<p>git reset既可以跳转到过去的版本，也可以跳转到未来的版本，所谓未来的版本，是相对的，其出现必定是当前的HEAD指向的是过去的版本库，通过指定“未来”某个版本库的编号来实现跳转。但是跳转到过去的版本后，git log就只能看到在这个过去的版本之前的commit了，这是若是忘记了“未来“的版本号，应当用以下指令</p>
+<pre><code class="bash">git reflog</code></pre>
+<h3 id="查看文件差别"><a href="#查看文件差别" class="headerlink" title="查看文件差别"></a>查看文件差别</h3><p>git diff 查看文件差别，输出的是UNIX格式的文件差别</p>
+<pre><code class="bash">git diff HEAD -- README.md #查看工作区的README.md与当前版本库的区别</code></pre>
+<blockquote>
+<p>UNIX格式文件差别</p>
+</blockquote>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><p>git checkout实现某个文件丢弃修改，退回到最近一次git commit或git add的状态，分两种情况：</p>
+<ol>
+<li>如果该文件自修改后没有git add放到暂存区，那么git checkout会用当前版本HEAD中的该文件进行覆盖，以撤销修改</li>
+<li>如果该文件已经git add过一次放到暂存区了，但是又做了修改，还改错了，那么git checkout会用暂存区中的该文件进行覆盖，以撤销修改</li>
+</ol>
+<pre><code class="bash">git checkout -- README.md</code></pre>
+<blockquote>
+<p>注意一定要加–，但是目前的知识还无法解释为什么，在很多地方也都见到了–。</p>
+</blockquote>
+<p>但是如果是第二种情况，也是分情况的</p>
+<ol>
+<li>如果是已经git add过一次，且git add到暂存区里的版本是没有错的，可以用git checkout进行恢复</li>
+<li>如果git add到暂存区里的文件是写错的文件，这时git checkout没有意义。</li>
+</ol>
+<p>此时可以使用版本回退时用到的指令git reset，git reset除了可以回退版本，也可以把暂存区的修改回退到工作区。在配合git checkout，丢弃工作区的修改，既可以实现版本回退。</p>
+<pre><code class="bash">git reset HEAD README.md #将暂存区覆盖到工作区，暂存区清理该文件README.md
+git checkout -- README.md #用最新修改覆盖工作区的文件，由于暂存区已经没有README.md所以会去当前HEAD里面找。</code></pre>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><p>git的删除文件实际上并不是真的删了，而是表面看起来删了，只要它曾经commit过，那么后面即使删了该文件，也可以通过版本回退的方法或者git checkout找回该文件。</p>
+<p>在工作区删除文件可以用常规的rm，但是要从版本中移除文件，要打git rm。可以先rm后git rm，或者直接git rm效果也一样。</p>
+<pre><code class="bash">git rm README.md
+git commit -m &quot;delete README.md&quot;</code></pre>
+<p>git rm和git add其实是对暂存区的一个相反的操作。如果执行了rm，再查看git status，会提示说该修改not staged for commit，和对某个文件下修改了后执行git status一样，会提示说该修改not staged for commit。如下面所示：</p>
+<pre><code class="bash">$ git status
+On branch master
+Changes not staged for commit:
+  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+    deleted:    test.txt
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>有两种方式可以与远程仓库进行绑定，如下：</p>
+<h3 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h3><p>在github上新建一个repository，<strong>注意不要勾选README.md初始化</strong>，然后在本地git clone将仓库克隆下来。如果是项目从零开始，最好采用这种方式。</p>
+<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><p>如果本地已经写了一些内容，想要绑定远程仓库，这种情况下同样需要有一个远程仓库，可以是已有的也可以是新建的，然后在本地</p>
+<pre><code class="bash">git remote add origin https://github.com//zhangxixi0904/git-test.git</code></pre>
+<p>然后将本地仓库的内容推送至远程仓库</p>
+<pre><code class="bash">git push -u origin master</code></pre>
+<p>第一次推送是加了-u参数，这样git可以顺便将本地的master分支与远程的master分支绑定起来。</p>
+<p>以后每次推送只需要</p>
+<pre><code class="bash">git push</code></pre>
+<p>或者完整地写上</p>
+<pre><code class="bash">git push origin master</code></pre>
+<p>如果远程仓库是初始化过的，这种绑定远程仓库的方式可能会报错</p>
+<pre><code class="bash">error: failed to push some refs to &#39;https://github.com/zhangxixi0904/git-test.git&#39; 
+hint: Updates were rejected because the remote contains work that you do 
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes 
+hint: (e.g., &#39;git pull ...&#39;) before pushing again. 
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.
+
+fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists.</code></pre>
+<p>需要先将远程仓库pull下来，如果有unrelated histories，即两个库的git历史记录无法不相干而无法合并，还需要加上–allow-unrelated-histories 参数，这会默认生成一次commit，需要在打开的文件中输入提交说明，完成后再进行push</p>
+<pre><code class="bash">git pull origin master
+
+git pull origin master --allow-unrelated-histories
+git push origin master</code></pre>
+<p>远程仓库还有许多操作，如remove，可以在本地移除对远程仓库origin的绑定</p>
+<pre><code class="bash">git remote remove origin</code></pre>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="分支的创建、合并与冲突修改"><a href="#分支的创建、合并与冲突修改" class="headerlink" title="分支的创建、合并与冲突修改"></a>分支的创建、合并与冲突修改</h3><pre><code class="bash"># 创建并切换到分支
+git checkout -b dev 
+# 相当于
+git branch dev
+git checkout dev
+# 在分支上完成了工作后，切换会master分支，合并dev分支
+git checkout master
+git merge dev</code></pre>
+<p>在合并时，会出现四种情形</p>
+<ul>
+<li><p>如果master自分支后没有修改过（commit），那么会自动启用fast-forward，仅仅是将master指针移动到dev指针位置，合并的速度也非常快。</p>
+</li>
+<li><p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>无冲突</strong>，那么在合并时自动生成一个commit，并会弹出窗口要求写入这次commit的描述</p>
+</li>
+<li><p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>有冲突</strong>，那么在合并时会报错，提示有冲突，输入git status会显示哪些文件有冲突。打开冲突的文件，会标识出冲突的地方，要求对冲突的地方进行修改，再做merge。注意，此时，冲突修改是只对当前分支（一般是master分支），dev分支中的冲突不会被一并修改，如果dev想要做相应的修改，还得切换到dev分支再操作。</p>
+</li>
+</ul>
+<p>可以采用下面指令查看分支合并图</p>
+<pre><code class="bash">git log --graph</code></pre>
+<h3 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h3><p>在能实现fast-forward的状态下，如果采用git merge dev，那么仅仅是将master指针指向dev所在的位置，此时若删掉分支dev，会丢失分支信息（即git log不再看得出来曾经出现过dev？）</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919022412005504/0" alt="git-br-ff-merge"></p>
+<p>此时，可以在git merge时加上–no-ff参数，则在merge时会生成一个新的commit，删掉dev分支后，也不会丢失分支信息，可以看得出来曾经有dev分支，曾经与master做过合并。（第二种不一定就比上一种好，看需要）</p>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919023225142304/0" alt="git-no-ff-mode"></p>
+<p>实际开发中的一种分支策略：</p>
+<ul>
+<li>master是稳定的发布版本，平时不在上面干活</li>
+<li>dev是干活的分支，不稳定版本，等到有正式版本发布时，将dev合并到master上，在master分支发布正式版本</li>
+<li>平时每个人都dev上干活，但也有自己的分支，往dev上合并</li>
+</ul>
+<p><img src="https://www.liaoxuefeng.com/files/attachments/919023260793600/0" alt="git-br-policy"></p>
+<p>在工作于各个分支的过程中，还有三个指令经常用到：</p>
+<ul>
+<li><p>如果在某分支上工作时，有突发事件需要其他分支上工作，此时有些工作还未提交commit，但是由于工作还未完成暂时不能提交，此时可以用stash功能保护现场，所谓的现场就是工作区。输入了下列指令后可以用git status查看工作区，正常来说是干净的。</p>
+<pre><code class="bash">git stash</code></pre>
+<p>在突发事件的工作完成后，再切换会原来的分支，输入</p>
+<pre><code class="bash">git stash list
+# 会显示下面内容,可以查看有哪些保护的现场
+stash@&#123;0&#125;: WIP on dev: f52c633 add merge</code></pre>
+<p>之后两种方式恢复现场</p>
+<pre><code class="bash">git stash pop ## 恢复现场的同时，将stash的内容删除
+git stash apply stash@&#123;0&#125; ## 仅仅恢复现场，不将stash的内容删除
+git stash drop stash@&#123;0&#125; ## 手动删除stash的内容</code></pre>
+</li>
+<li><p>有时在某个分支完成的内容想复制到另一个分支，比如说master分支中存在bug，那么拉出一个bug分支解决后合并回master分支中，但是dev分支是早期从master中分出来的，dev上面肯定也存在一样的bug，要想在dev分支上复制bug分支所修复的代码，一方面当然可以手动复制，另一方面，也可以用cherry-pick，它能实现将bug分支的所做的修改合并到dev分支</p>
+<pre><code class="bash">git checkout dev # 首先确保当前是在dev分支上
+git cherry-pick 提交号</code></pre>
+<p>这会生成一个新的提交，与之前bug分支merge到master上的提交还不一样，虽然改动相同，但确实是两个不同的commit</p>
+</li>
+<li><p>如果在某个分支上干活干到一半，突然说这个分支的工作要放弃了，此时为了保密比较销毁分支，此时</p>
+<pre><code class="bash">git branch -d feature ## 无法删除分支，会提示该分支未合并
+git bvranch -D feature ## 必须采用=D参数强制删除</code></pre>
+</li>
+</ul>
+<h3 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h3><p>查看远程库信息</p>
+<pre><code class="bash">git remote
+# 或者
+git remote -V</code></pre>
+<p>本地新建的分支若不推送至远程，其他人是不可见的，需要先push到远程</p>
+<pre><code class="bash">git push origin branch-name</code></pre>
+<p>若要删除远程的某个分支，可以</p>
+<pre><code class="bash">git push origin --delete branch-name</code></pre>
+<p>git clone会把整个项目下载下来，但是默认只会在本地创建master分支，通过下面指令可以查看所有分支</p>
+<pre><code class="bash">git branch -a
+
+ * master  
+  remotes/origin/HEAD -&gt; origin/master
+  remotes/origin/desktop
+  remotes/origin/dev
+  remotes/origin/template</code></pre>
+<p>可以通过下面指令在本地创建分支并与远程的某个分支关联起来</p>
+<pre><code class="bash">git checkout -b desktop origin/desktop</code></pre>
+<p>有时候将某分支推送至远程时，若其他人在之前已经推送过别的修改，并和自己的有冲突，则需要git pull将最新的提交抓取下来。</p>
+<p>从远程拉取时，若报错no tracking，表示本地分支与远程分支未绑定，如：</p>
+<pre><code class="bash">$ git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull &lt;remote&gt; &lt;branch&gt;
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/&lt;branch&gt; dev</code></pre>
+<p>按照提示，可以通过下面指令进行指定</p>
+<pre><code class="bash">$ git branch --set-upstream-to=origin/dev dev
+Branch &#39;dev&#39; set up to track remote branch &#39;dev&#39; from &#39;origin&#39;.</code></pre>
+<p>特殊指令</p>
+<pre><code class="bash">git rebase</code></pre>
+<p>可以实现将分叉的提交变成简化成一条直线，这么做是为了直观</p>
+]]></content>
+      <categories>
+        <category>程序设计</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>程序员素养</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>title: Linux网络编程<br>date: 2020-7-3 11:25:00<br>top: true<br>cover: true<br>toc: false<br>mathjax: false<br>categories: 程序设计<br>tags:</p>
+<ul>
+<li>C++</li>
+<li>后端开发</li>
+<li>TCP/IP通信</li>
+<li>Socket</li>
+</ul>
+<p>PC间的TCP/IP、UDP网络通信是互联网的一大关键技术，关于TCP/IP以及UDP的技术在其他文章中已经介绍过，本文将聚焦如何通过Linux的接口实现多台PC间的最简单的通信。</p>
+<h2 id="常用API函数"><a href="#常用API函数" class="headerlink" title="常用API函数"></a>常用API函数</h2><h3 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h3><pre><code class="c++">int socket(int domain, int type, int protocol);</code></pre>
+<ul>
+<li>domain表示协议族，可选AF_INET/PF_INET，表示采用IPv4，AF_INET6/PF_INET6表示IPv6，PF_UNIX表示UNIX本地协议族</li>
+<li>type表示服务类型，可选SOCK_STREAM为TCP协议，SOCK_DGRAM为UDP协议</li>
+<li>protocol，一般取0即可</li>
+<li>成功返回0，失败返回-1并设置errno</li>
+</ul>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><pre><code class="c++">int bind(sockfd, const struct sockaddr* my_addr, socket_t addrlen);</code></pre>
+<ul>
+<li>sockfd是socket()函数的返回值</li>
+<li>my_addr是服务端地址</li>
+<li>addrlen是储存服务端地址的变量的长度sizeof</li>
+<li>成功返回0，失败返回-1并设置errno</li>
+</ul>
+<h3 id="listen"><a href="#listen" class="headerlink" title="listen"></a>listen</h3><pre><code class="c++">int listen(int sockfd, int backlog);</code></pre>
+<ul>
+<li>sockfd与上面一致</li>
+<li>backlog最大监听队列长度，若监听队列超过backlog，服务器将不受理新的客户连接，客户端会受到ECONNREFUSED信息</li>
+</ul>
+<h3 id="accept"><a href="#accept" class="headerlink" title="accept"></a>accept</h3><pre><code class="c++">int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);</code></pre>
+<ul>
+<li>sockfd与上面一致</li>
+<li>addr储存建立连接的客户端的ip地址，传入的实际参数通常是一个新建sockaddr_in结构体，并且初始化为0</li>
+<li>addrlen为addr的长度sizeof</li>
+<li>成功会返回一个新的socket，它用于后续真正的信息传送与接收</li>
+</ul>
+<h3 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h3><pre><code class="c++">int connect(int sockfd, const struct sockaddr *serv_addr, socklen_t addrlen);</code></pre>
+<ul>
+<li>sockfd是在客户端创建的socket</li>
+<li>serv_addr为服务端地址</li>
+<li>addrlen为长度sizeof</li>
+<li>成功返回-，错误返回-1并设置errno，常见的errno是ECONNREFUSED和ETIMEOUT，其含义如下：<ul>
+<li>ECONNREFUSED表示端口不存在，连接被拒绝</li>
+<li>ETIMEOUT表示连接超时</li>
+</ul>
+</li>
+</ul>
+<h3 id="recv"><a href="#recv" class="headerlink" title="recv"></a>recv</h3><pre><code class="c++">ssize_t recv(int sockfd, void *buf, size_t len, int flags);</code></pre>
+<ul>
+<li>sockfd为建立连接后的sock，对于服务端是accept返回的socket，对于客户端则是唯一建立的那个socket</li>
+<li>buf，存放数据的缓存，事先建立，作为实参传入</li>
+<li>len，期望的长度，实际接受的长度&lt;=期望的长度</li>
+<li>flag一般设置为0即可，设置为MSG_OOB为发送紧急数据（带外数据）</li>
+<li>成功返回实际读取到的数据的长度，失败返回-1并设置 errno</li>
+</ul>
+<h3 id="send"><a href="#send" class="headerlink" title="send"></a>send</h3><pre><code class="c++">ssize_t recv(int sockfd, const void *buf, size_t len, int flags);</code></pre>
+<ul>
+<li>和revc基本一致</li>
+</ul>
+<h3 id="recvfrom和sendto"><a href="#recvfrom和sendto" class="headerlink" title="recvfrom和sendto"></a>recvfrom和sendto</h3><p>recv和send是使用与TCP的接口，recvfrom和sendto是适用于UDP的接口</p>
+<pre><code class="c++">ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* src_addr, socklen_t* addrlen);
+
+ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* dest_addr, socklen_t* addrlen);</code></pre>
+<p>多了两个参数：</p>
+<ul>
+<li>src_addr或是dest_addr，表示所要发送的地址或所要接收的地址，因为UDP不是面向连接的，所以每次传送或接受信息都要指定地址</li>
+<li>addrlen长度sizeof</li>
+</ul>
+<h3 id="close"><a href="#close" class="headerlink" title="close"></a>close</h3><pre><code class="c++">int close(int fd);</code></pre>
+<ul>
+<li>fd是待关闭的socket</li>
+<li>并非立刻关闭，而是将fd的引用计数减1，只有fd的引用计数为0时，才真正关闭</li>
+<li>非要立刻关闭可以用</li>
+</ul>
+<pre><code class="c++">int shutdown(int sockfd, int howto)</code></pre>
+<ul>
+<li>howto可选SHUT_RD关闭读的一半，SHUT_WR关闭写的一半，SHUT_RDWR同时关闭读写</li>
+</ul>
+<h2 id="hello-world示例"><a href="#hello-world示例" class="headerlink" title="hello-world示例"></a>hello-world示例</h2><h3 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h3><p>一共设置了三台PC，腾讯云的一台centos 7服务器作为服务端，本地在Virtual Box开启两台ubuntu18.04虚拟机作为客户端。</p>
+<h3 id="端口开放设置"><a href="#端口开放设置" class="headerlink" title="端口开放设置"></a>端口开放设置</h3><p>ubuntu18.04默认防火墙ufw一般不会开启，如果启用了，需要增添规则开放通信端口</p>
+<p>腾讯云的centos 7服务器的端口设置需要注意两点：</p>
+<ul>
+<li>需要在腾讯云控制台的安全组设置中开放需要通信端口，不过一般默认是全开放，为了安全可以全关闭后只开放特定端口</li>
+<li>centos 7 默认采用iptables防火墙，对于iptables防火墙的具体介绍打算在新开一个坑进行介绍，这里只做简单说明。服务端准备采用3400端口进行通信，则需要</li>
+</ul>
+<pre><code class="bash">iptables -I INPUT 2 -p tcp --dport 3400 -j ACCEPT 
+service iptables save
+service iptables restart</code></pre>
+<p><em>第一行指令：表示在规则链开头第二条的位置新增一个针对流入信息的规则，该规则接受3400端口的TCP应用服务。第二条指令对规则进行保存，否则重启服务或重启服务器会失效，第三条重启服务（好像不一定要重启服务）</em></p>
+<h3 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h3><p>[]: <a href="https://github.com/zhangxixi0904/Cpp-Network.git">https://github.com/zhangxixi0904/Cpp-Network.git</a>    “Linux网络编程的hello-world”</p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>在服务端运行</p>
+<pre><code class="bash">./tcp_net_server 172.0.5.171 3400 # 172.0.5.171是腾讯云的内网地址</code></pre>
+<p>在客户端分别运行</p>
+<pre><code class="bash">./tcp_net_client 服务端外网ip 3400</code></pre>
+<p><img src="C:\Users\91721\AppData\Roaming\Typora\typora-user-images\image-20200703113412962.png" alt="客户端显示"></p>
+<p><img src="C:\Users\91721\AppData\Roaming\Typora\typora-user-images\image-20200703113505425.png" alt="服务端显示"></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><p><a href="https://www.cnblogs.com/jfyl1573/p/6476607.html">https://www.cnblogs.com/jfyl1573/p/6476607.html</a></p>
+</li>
+<li><p>Linux高性能服务器编程 游双</p>
+</li>
+<li><p><a href="https://www.cnblogs.com/bazingafraser/p/8507602.html">https://www.cnblogs.com/bazingafraser/p/8507602.html</a></p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>NIS主从服务器搭建</title>
+    <url>/2019/11/25/NIS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="NIS主服务器搭建"><a href="#NIS主服务器搭建" class="headerlink" title="NIS主服务器搭建"></a>NIS主服务器搭建</h1><ol>
+<li><p>安装nis、rpcbind服务，</p>
+<pre><code class="bash">sudo apt-get install nis rpcbind</code></pre>
+<p>安装NIS服务后会自动弹出一个窗口要写填写ypdomainname；之后也可以修改，通过下面一条指令，重新弹出窗口设置：</p>
+<pre><code>sudo dpkg-reconfigure nis</code></pre>
+<blockquote>
+<p>ypdomainname和hostname不是一回事</p>
+<p>ypmomainname需要在整个集群中保持一致，在本例中是设置成mgt</p>
+</blockquote>
+</li>
+</ol>
+<a id="more"></a>
+
+
+
+<ol start="2">
+<li>修改/etc/default/nis两行内容NISSERVER，NISCLIENT</li>
+</ol>
+<pre><code class="bash"># line 6: change (set NIS master server)
+NISSERVER=master
+
+# line 9: Are we a NIS client?
+NISCLIENT=true</code></pre>
+<p>如果有从服务器，主服务器也需要开始client模式，所以NISCLIENT也要设置成true</p>
+<blockquote>
+<p>留一个疑问：如果没有从服务器，还需要设置成true吗？</p>
+</blockquote>
+<ol start="3">
+<li><p>如有必要，修改/etc/ypserv.securenets，设置允许访问的IP</p>
+</li>
+<li><p>修改/var/yp/Makefile</p>
+</li>
+</ol>
+<pre><code class="bash"># line 23: change
+NOPUSH=false
+
+# line 52: change
+MERGE_PASSWD=true
+
+# line 56: change
+MERGE_GROUP=true</code></pre>
+<p>如果有从服务器，nopush行一定要设置成false，不然不会同步到从服务器</p>
+<ol start="5">
+<li><p>修改 /etc/hosts，将集群中的服务端和客户端的域名和IP都写进去</p>
+</li>
+<li><p><strong>重要！！！！</strong>如果是主从模式，要将主服务器也设置成客户端模式，配置NIS client的步骤也要在主服务器上进行一遍。</p>
+</li>
+</ol>
+<ul>
+<li>修改/etc/yp.conf，把主从的信息都写上</li>
+</ul>
+<pre><code>domain mgt server mgt.test
+domain mgt server mgt-slave.test</code></pre>
+<ul>
+<li>修改 /etc/nsswitch.conf</li>
+</ul>
+<pre><code>passwd:     compat nis     # line 7; add
+group:     compat nis     # add
+shadow:     compat nis     # add
+hosts:     files dns nis     # add</code></pre>
+<ul>
+<li>添加一行信息到/etc/pam.d/common-session</li>
+</ul>
+<pre><code># add to the end
+session optional        pam_mkhomedir.so skel=/etc/skel umask=077</code></pre>
+<ol start="7">
+<li><p>初始化主服务器</p>
+<pre><code class="bash">sudo systemctl restart rpcbind nis 
+sudo /usr/lib/yp/ypinit -m </code></pre>
+<p>会弹出一些列信息，需要添加上从服务器的hostname</p>
+<pre><code class="bash">At this point, we have to construct a list of the hosts which will run NIS
+servers.  dlp.srv.world is in the list of NIS server hosts.  Please continue to add
+the names for the other hosts, one per line.  When you are done with the
+list, type a &lt;control D&gt;.
+        next host to add:  mgt.test
+        # specify NIS slave
+        next host to add: mgt-slave.test
+        next host to add:     # Ctrl + D key
+The current list of NIS servers looks like this:
+
+mgt.test
+mgt-slave.test
+
+Is this correct? [y/n: y] y
+We need a few minutes to build the databases...
+Building /var/yp/mgt/ypservers...
+...
+...
+Now you can run ypinit -s mgt.test on all slave server.</code></pre>
+<blockquote>
+<p>不知道是不是从服务器初始化一次后这里又要运行一次，还是上面一开始就把从服务器写上的话就不需要再重新运行，重新运行可能只是中途插入一个从服务器才需要</p>
+</blockquote>
+<p>至此，主服务器就设置完毕</p>
+</li>
+</ol>
+<h1 id="NIS从服务器搭建"><a href="#NIS从服务器搭建" class="headerlink" title="NIS从服务器搭建"></a>NIS从服务器搭建</h1><ol>
+<li><p>安装rpcbind，nis，配置ypdomainname</p>
+</li>
+<li><p>将从服务器配置成主服务器的客户端模式（下面三步完全依照第一章&lt;NIS主服务器搭建&gt;的内容填写即可）</p>
+<ul>
+<li><p>修改/etc/yp.conf，把主从的信息都写入</p>
+</li>
+<li><p>修改 /etc/nsswitch.conf</p>
+</li>
+<li><p>修改/etc/pam.d/common-session</p>
+</li>
+</ul>
+</li>
+<li><p>将主服务器也配置成从服务器的客户端模式（在第一章&lt;NIS主服务器搭建&gt;中已完成）</p>
+</li>
+<li><p>修改/etc/default/nis</p>
+<pre><code># line 6: change (set NIS master server)
+NISSERVER=slave
+
+# line 9: Are we a NIS client?
+NISCLIENT=true</code></pre>
+</li>
+<li><p>如有必要，修改 <strong>/etc/ypserv.securenets</strong> </p>
+</li>
+<li><p>修改 /var/yp/Makefile</p>
+<pre><code># line 52: change
+MERGE_PASSWD=true
+
+# line 56: change
+MERGE_GROUP=true</code></pre>
+<blockquote>
+<p>从服务器的NOPUSH不需要设置</p>
+</blockquote>
+</li>
+<li><p>设置/etc/hosts，跟主服务器的保持一致即可</p>
+</li>
+<li><p>初始化从服务器</p>
+<pre><code class="bash">sudo systemctl restart rpcbind nis
+sudo /usr/lib/yp/ypinit -s mgt.test
+
+# 弹出下列信息即表示成功
+We will need a few minutes to copy the data from mgt.test.
+Transferring group.bygid...
+Trying ypxfrd ... success
+...
+...
+At this point, make sure that /etc/passwd and /etc/group have
+been edited so that when the NIS is activated, the data bases you
+have just created will be used, instead of the /etc ASCII files.</code></pre>
+<p>至此，从服务器配置完毕</p>
+</li>
+</ol>
+<h1 id="NIS客户端搭建"><a href="#NIS客户端搭建" class="headerlink" title="NIS客户端搭建"></a>NIS客户端搭建</h1><ol>
+<li><p>安装rpcbind，nis，配置ypdomainname</p>
+</li>
+<li><p>修改/etc/yp.conf，主从都要写，按第一章的内容填写即可</p>
+</li>
+<li><p>修改/etc/nsswitch.conf，第一章内容填写即可</p>
+</li>
+<li><p>修改/etc/pam.d/common-session，按第一章内容填写即可</p>
+</li>
+<li><p>重启rpcbind和nis服务</p>
+<pre><code class="bash">sudo systemctl restart rpcbind nis</code></pre>
+<blockquote>
+<p>NIS客户端是不需要修改/etc/default/nis和/var/yp/Makefile，也不需要运行ypinit</p>
+</blockquote>
+</li>
+</ol>
+<p>​        至此，NIS客户端配置完成</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>损失曲线能告诉我们什么</title>
+    <url>/2019/11/27/%E6%8D%9F%E5%A4%B1%E6%9B%B2%E7%BA%BF%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<blockquote>
+<p>虽然说神经网络是个黑匣子，但是也不能瞎训练，任何事物都必须有一个评判的标准，才能推动其进步和发展。损失曲线就是其中一样帮助我们了解模型特性的工具，通过观察其某些规律，可以在一定程度上帮助我们调整训练策略。</p>
+</blockquote>
+<ol>
+<li><p>如何判断数据量不足？</p>
+<p>通过两个特征来判断：</p>
+<ul>
+<li>训练曲线和验证曲线震荡</li>
+<li>训练曲线和验证曲线趋势相反</li>
+</ul>
+<p><img src="Example-of-Train-and-Validation-Learning-Curves-Showing-a-Training-Dataset-the-May-be-too-Small-Relative-to-the-Validation-Dataset-768x576.png" alt="数据量不足的例子"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>trick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习炼丹术</title>
+    <url>/2019/11/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E6%9C%AF/</url>
+    <content><![CDATA[<h1 id="测试集和验证集"><a href="#测试集和验证集" class="headerlink" title="测试集和验证集"></a>测试集和验证集</h1><p>验证集是用来辅助训练的，而测试集是最终评判的指标，它在整个训练过程中应当是不可见的。验证集的辅助作用体现在：</p>
+<ol>
+<li>通过观察验证Loss曲线，调整模型的结构，包括神经元数量、层数等等。</li>
+<li>通过观察验证Loss曲线，调整训练策略，比如过拟合时需要及时停止，数据集样本不足需要数据增强，关于这些情况的观察，可以查阅我另一篇博客《损失曲线能告诉我们什么》</li>
+</ol>
+<p>而测试集比较好理解，就是最终判断模型的泛化性能的。很多时候看文章都没有提到验证集，因为它的确不是必要的，但如果调参感觉没有方向，可以加个验证集观察一下，多次验证以寻找模型的最佳训练策略和最佳结构。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>trick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2020/04/14/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>title: 爬虫框架Scrapy学习笔记<br>date: 2019-11-25 09:33:21<br>categories: Markdown<br>cover: true<br>tags: </p>
+<p>​    - 业余</p>
+<h1 id="爬虫禁区"><a href="#爬虫禁区" class="headerlink" title="爬虫禁区"></a>爬虫禁区</h1><ol>
+<li>不能过量访问，即每秒请求次数不能过多，需要限制，还需要监控响应时间，好在Scrapy配备了相应功能。</li>
+<li>需要遵循网站的版权声明</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>略说PyTorch的autograd</title>
+    <url>/2019/11/26/%E7%95%A5%E8%AF%B4PyTorch%E7%9A%84autograd/</url>
+    <content><![CDATA[<ol>
+<li><p>backward()在做什么？</p>
+<p>backward()是在根据链式法则从后往前逐层地计算梯度并且反向传播，一直进行到网络最前面的叶子节点，即输入层，计算的梯度会存储在tensor的grad中，但是需要注意的是，autograd只保留叶子节点的grad，中间的所有的tensor的grad是在完成梯度计算后会自动释放掉，如果需要去查看，需要用hook函数。举例：</p>
+<pre><code class="python">import torch
+a = torch.rand(1,2,requires_grad=True)
+b = a*2
+c = torch.mean(b)
+
+# 计算法则：a=(a1,a2), b=(b1,b1)=(2a1,2a2), c=1/2(b1+b2)
+
+print(a.grad) # (1,1) 与设想一致
+print(b.grad) # 无输出，应该是(1/2,1/2)
+print(c.grad) # 无输出，应该是1</code></pre>
+</li>
+</ol>
+<ol start="2">
+<li><p>在真正的CNN中哪些地方的grad会保留下来</p>
+<p>在上面提到autograd只保留叶子节点的grad，因此在backward()之后CNN中间层的所有feature map的梯度都被清空了，但需要注意的是，所有层的卷积核的的weights和bias，都是叶子节点，没错，他们是叶子节点，所谓叶子节点不是说网络最前面的节点，而是它底下没有节点再与之相连了，卷积核和该层的feature map相连之后就没有继续和别的节点相连的，因此它是叶子节点，卷积核中的参数的grad是被保留下来的！但是feature map前接上一层卷积核，后接下一层的卷积核相连，不是叶子节点（画个计算图？）。同理，BN层的参数也是保留grad的。</p>
+</li>
+<li><p>backward()会进行参数更新吗？</p>
+<p>不会！backward()只是计算了梯度，包括问题2中提到的卷积核中参数的梯度，他们会被保留下来，然后通过optimizer.step()进行参数更新，参数更新的策略，即怎么利用backward()计算的grad来更新参数，就由optimizer的类型决定了，可以是SGD、ADAM等等</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>pytorch</tag>
+        <tag>反向传播</tag>
+      </tags>
+  </entry>
+</search>
