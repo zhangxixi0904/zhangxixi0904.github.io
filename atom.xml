@@ -6,7 +6,7 @@
   <link href="https://zhangxixi0904.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://zhangxixi0904.gitee.io/"/>
-  <updated>2020-07-03T03:39:19.000Z</updated>
+  <updated>2020-12-04T03:09:47.667Z</updated>
   <id>https://zhangxixi0904.gitee.io/</id>
   
   <author>
@@ -17,45 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Linux网络编程</title>
     <link href="https://zhangxixi0904.gitee.io/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/"/>
     <id>https://zhangxixi0904.gitee.io/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</id>
-    <published>2020-07-03T03:39:19.000Z</published>
-    <updated>2020-07-03T03:39:19.000Z</updated>
+    <published>2020-07-03T03:25:00.000Z</published>
+    <updated>2020-12-04T03:09:47.667Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;title: Linux网络编程&lt;br&gt;date: 2020-7-3 11:25:00&lt;br&gt;top: true&lt;br&gt;cover: true&lt;br&gt;toc: false&lt;br&gt;mathjax: false&lt;br&gt;categories:</summary>
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;C++&lt;/li&gt;
+&lt;li&gt;后端开发&lt;/li&gt;
+&lt;li&gt;TCP/IP通信&lt;/li&gt;
+&lt;li&gt;Socket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PC间的TCP/IP、UDP网络通信是互联网的一大关键技术，关于TCP/IP以及UDP的技术在其他文章中已经介绍过，本文将聚焦如何</summary>
         
       
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://zhangxixi0904.gitee.io/2020/04/14/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>https://zhangxixi0904.gitee.io/2020/04/14/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
-    <published>2020-04-14T01:41:54.000Z</published>
-    <updated>2020-04-14T01:41:54.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;title: 爬虫框架Scrapy学习笔记&lt;br&gt;date: 2019-11-25 09:33:21&lt;br&gt;categories: Markdown&lt;br&gt;cover: true&lt;br&gt;tags: &lt;/p&gt;
-&lt;p&gt;​    - 业余&lt;/p&gt;
-&lt;h1</summary>
-        
-      
-    
-    
+    <category term="程序设计" scheme="https://zhangxixi0904.gitee.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
     
     
   </entry>
@@ -174,11 +159,36 @@
   </entry>
   
   <entry>
+    <title>爬虫框架Scrapy学习笔记</title>
+    <link href="https://zhangxixi0904.gitee.io/2019/11/25/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>https://zhangxixi0904.gitee.io/2019/11/25/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2019-11-25T01:33:21.000Z</published>
+    <updated>2020-12-04T03:09:41.944Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;爬虫禁区&quot;&gt;&lt;a href=&quot;#爬虫禁区&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Markdown" scheme="https://zhangxixi0904.gitee.io/categories/Markdown/"/>
+    
+    
+    <category term="业余" scheme="https://zhangxixi0904.gitee.io/tags/%E4%B8%9A%E4%BD%99/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Git学习笔记</title>
     <link href="https://zhangxixi0904.gitee.io/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>https://zhangxixi0904.gitee.io/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-11-23T17:25:00.000Z</published>
-    <updated>2020-06-24T15:26:59.000Z</updated>
+    <updated>2020-12-04T03:09:29.355Z</updated>
     
     
       

@@ -180,10 +180,9 @@ Branch &#39;dev&#39; set up to track remote branch &#39;dev&#39; from &#39;origi
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>Linux网络编程</title>
     <url>/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<p>title: Linux网络编程<br>date: 2020-7-3 11:25:00<br>top: true<br>cover: true<br>toc: false<br>mathjax: false<br>categories: 程序设计<br>tags:</p>
-<ul>
+    <content><![CDATA[<ul>
 <li>C++</li>
 <li>后端开发</li>
 <li>TCP/IP通信</li>
@@ -285,6 +284,9 @@ service iptables restart</code></pre>
 </li>
 </ol>
 ]]></content>
+      <categories>
+        <category>程序设计</category>
+      </categories>
   </entry>
   <entry>
     <title>NIS主从服务器搭建</title>
@@ -504,15 +506,19 @@ have just created will be used, instead of the /etc ASCII files.</code></pre>
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2020/04/14/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>title: 爬虫框架Scrapy学习笔记<br>date: 2019-11-25 09:33:21<br>categories: Markdown<br>cover: true<br>tags: </p>
-<p>​    - 业余</p>
-<h1 id="爬虫禁区"><a href="#爬虫禁区" class="headerlink" title="爬虫禁区"></a>爬虫禁区</h1><ol>
+    <title>爬虫框架Scrapy学习笔记</title>
+    <url>/2019/11/25/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="爬虫禁区"><a href="#爬虫禁区" class="headerlink" title="爬虫禁区"></a>爬虫禁区</h1><ol>
 <li>不能过量访问，即每秒请求次数不能过多，需要限制，还需要监控响应时间，好在Scrapy配备了相应功能。</li>
 <li>需要遵循网站的版权声明</li>
 </ol>
 ]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>业余</tag>
+      </tags>
   </entry>
   <entry>
     <title>略说PyTorch的autograd</title>
