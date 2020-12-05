@@ -788,7 +788,8 @@ print(c.grad) # 无输出，应该是1
   <entry>
     <title>hexo图片路径设置</title>
     <url>/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<p><img src="hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/Picture1.png" alt="Picture1"></p>
+    <content><![CDATA[<p>hexo插入图片的方式有以下三种：</p>
+<p><img src="Picture1.png" alt="Picture1"></p>
 ]]></content>
       <categories>
         <category>博客</category>
