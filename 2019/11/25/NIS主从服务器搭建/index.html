@@ -101,77 +101,89 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="NIS主服务器搭建"><a href="#NIS主服务器搭建" class="headerlink" title="NIS主服务器搭建"></a>NIS主服务器搭建</h1><ol>
-<li><p>安装nis、rpcbind服务，</p>
-<pre><code class="bash">sudo apt-get install nis rpcbind</code></pre>
+  <h1>NIS主服务器搭建</h1>
+<ol>
+<li>安装nis、rpcbind服务，</li>
+</ol>
+<pre><code class="language-bash">sudo apt-get install nis rpcbind
+</code></pre>
 <p>安装NIS服务后会自动弹出一个窗口要写填写ypdomainname；之后也可以修改，通过下面一条指令，重新弹出窗口设置：</p>
-<pre><code>sudo dpkg-reconfigure nis</code></pre>
+<pre><code>sudo dpkg-reconfigure nis
+</code></pre>
 <blockquote>
 <p>ypdomainname和hostname不是一回事</p>
 <p>ypmomainname需要在整个集群中保持一致，在本例中是设置成mgt</p>
 </blockquote>
-</li>
-</ol>
 <a id="more"></a>
-
-
-
 <ol start="2">
 <li>修改/etc/default/nis两行内容NISSERVER，NISCLIENT</li>
 </ol>
-<pre><code class="bash"># line 6: change (set NIS master server)
+<pre><code class="language-bash"># line 6: change (set NIS master server)
 NISSERVER=master
 
 # line 9: Are we a NIS client?
-NISCLIENT=true</code></pre>
+NISCLIENT=true
+</code></pre>
 <p>如果有从服务器，主服务器也需要开始client模式，所以NISCLIENT也要设置成true</p>
 <blockquote>
 <p>留一个疑问：如果没有从服务器，还需要设置成true吗？</p>
 </blockquote>
 <ol start="3">
-<li><p>如有必要，修改/etc/ypserv.securenets，设置允许访问的IP</p>
+<li>
+<p>如有必要，修改/etc/ypserv.securenets，设置允许访问的IP</p>
 </li>
-<li><p>修改/var/yp/Makefile</p>
+<li>
+<p>修改/var/yp/Makefile</p>
 </li>
 </ol>
-<pre><code class="bash"># line 23: change
+<pre><code class="language-bash"># line 23: change
 NOPUSH=false
 
 # line 52: change
 MERGE_PASSWD=true
 
 # line 56: change
-MERGE_GROUP=true</code></pre>
+MERGE_GROUP=true
+</code></pre>
 <p>如果有从服务器，nopush行一定要设置成false，不然不会同步到从服务器</p>
 <ol start="5">
-<li><p>修改 /etc/hosts，将集群中的服务端和客户端的域名和IP都写进去</p>
+<li>
+<p>修改 /etc/hosts，将集群中的服务端和客户端的域名和IP都写进去</p>
 </li>
-<li><p><strong>重要！！！！</strong>如果是主从模式，要将主服务器也设置成客户端模式，配置NIS client的步骤也要在主服务器上进行一遍。</p>
+<li>
+<p>**重要！！！！**如果是主从模式，要将主服务器也设置成客户端模式，配置NIS client的步骤也要在主服务器上进行一遍。</p>
 </li>
 </ol>
 <ul>
-<li>修改/etc/yp.conf，把主从的信息都写上</li>
-</ul>
+<li>
+<p>修改/etc/yp.conf，把主从的信息都写上</p>
 <pre><code>domain mgt server mgt.test
-domain mgt server mgt-slave.test</code></pre>
-<ul>
-<li>修改 /etc/nsswitch.conf</li>
-</ul>
+domain mgt server mgt-slave.test
+</code></pre>
+</li>
+<li>
+<p>修改 /etc/nsswitch.conf</p>
 <pre><code>passwd:     compat nis     # line 7; add
 group:     compat nis     # add
 shadow:     compat nis     # add
-hosts:     files dns nis     # add</code></pre>
+hosts:     files dns nis     # add
+</code></pre>
 <ul>
 <li>添加一行信息到/etc/pam.d/common-session</li>
 </ul>
 <pre><code># add to the end
-session optional        pam_mkhomedir.so skel=/etc/skel umask=077</code></pre>
+session optional        pam_mkhomedir.so skel=/etc/skel umask=077
+</code></pre>
+</li>
+</ul>
 <ol start="7">
-<li><p>初始化主服务器</p>
-<pre><code class="bash">sudo systemctl restart rpcbind nis 
-sudo /usr/lib/yp/ypinit -m </code></pre>
+<li>
+<p>初始化主服务器</p>
+<pre><code class="language-bash">sudo systemctl restart rpcbind nis 
+sudo /usr/lib/yp/ypinit -m 
+</code></pre>
 <p>会弹出一些列信息，需要添加上从服务器的hostname</p>
-<pre><code class="bash">At this point, we have to construct a list of the hosts which will run NIS
+<pre><code class="language-bash">At this point, we have to construct a list of the hosts which will run NIS
 servers.  dlp.srv.world is in the list of NIS server hosts.  Please continue to add
 the names for the other hosts, one per line.  When you are done with the
 list, type a &lt;control D&gt;.
@@ -189,51 +201,66 @@ We need a few minutes to build the databases...
 Building /var/yp/mgt/ypservers...
 ...
 ...
-Now you can run ypinit -s mgt.test on all slave server.</code></pre>
+Now you can run ypinit -s mgt.test on all slave server.
+</code></pre>
 <blockquote>
 <p>不知道是不是从服务器初始化一次后这里又要运行一次，还是上面一开始就把从服务器写上的话就不需要再重新运行，重新运行可能只是中途插入一个从服务器才需要</p>
 </blockquote>
 <p>至此，主服务器就设置完毕</p>
 </li>
 </ol>
-<h1 id="NIS从服务器搭建"><a href="#NIS从服务器搭建" class="headerlink" title="NIS从服务器搭建"></a>NIS从服务器搭建</h1><ol>
-<li><p>安装rpcbind，nis，配置ypdomainname</p>
+<h1>NIS从服务器搭建</h1>
+<ol>
+<li>
+<p>安装rpcbind，nis，配置ypdomainname</p>
 </li>
-<li><p>将从服务器配置成主服务器的客户端模式（下面三步完全依照第一章&lt;NIS主服务器搭建&gt;的内容填写即可）</p>
+<li>
+<p>将从服务器配置成主服务器的客户端模式（下面三步完全依照第一章&lt;NIS主服务器搭建&gt;的内容填写即可）</p>
 <ul>
-<li><p>修改/etc/yp.conf，把主从的信息都写入</p>
+<li>
+<p>修改/etc/yp.conf，把主从的信息都写入</p>
 </li>
-<li><p>修改 /etc/nsswitch.conf</p>
+<li>
+<p>修改 /etc/nsswitch.conf</p>
 </li>
-<li><p>修改/etc/pam.d/common-session</p>
+<li>
+<p>修改/etc/pam.d/common-session</p>
 </li>
 </ul>
 </li>
-<li><p>将主服务器也配置成从服务器的客户端模式（在第一章&lt;NIS主服务器搭建&gt;中已完成）</p>
+<li>
+<p>将主服务器也配置成从服务器的客户端模式（在第一章&lt;NIS主服务器搭建&gt;中已完成）</p>
 </li>
-<li><p>修改/etc/default/nis</p>
+<li>
+<p>修改/etc/default/nis</p>
 <pre><code># line 6: change (set NIS master server)
 NISSERVER=slave
 
 # line 9: Are we a NIS client?
-NISCLIENT=true</code></pre>
+NISCLIENT=true
+</code></pre>
 </li>
-<li><p>如有必要，修改 <strong>/etc/ypserv.securenets</strong> </p>
+<li>
+<p>如有必要，修改 <strong>/etc/ypserv.securenets</strong></p>
 </li>
-<li><p>修改 /var/yp/Makefile</p>
+<li>
+<p>修改 /var/yp/Makefile</p>
 <pre><code># line 52: change
 MERGE_PASSWD=true
 
 # line 56: change
-MERGE_GROUP=true</code></pre>
+MERGE_GROUP=true
+</code></pre>
 <blockquote>
 <p>从服务器的NOPUSH不需要设置</p>
 </blockquote>
 </li>
-<li><p>设置/etc/hosts，跟主服务器的保持一致即可</p>
+<li>
+<p>设置/etc/hosts，跟主服务器的保持一致即可</p>
 </li>
-<li><p>初始化从服务器</p>
-<pre><code class="bash">sudo systemctl restart rpcbind nis
+<li>
+<p>初始化从服务器</p>
+<pre><code class="language-bash">sudo systemctl restart rpcbind nis
 sudo /usr/lib/yp/ypinit -s mgt.test
 
 # 弹出下列信息即表示成功
@@ -244,21 +271,29 @@ Trying ypxfrd ... success
 ...
 At this point, make sure that /etc/passwd and /etc/group have
 been edited so that when the NIS is activated, the data bases you
-have just created will be used, instead of the /etc ASCII files.</code></pre>
+have just created will be used, instead of the /etc ASCII files.
+</code></pre>
 <p>至此，从服务器配置完毕</p>
 </li>
 </ol>
-<h1 id="NIS客户端搭建"><a href="#NIS客户端搭建" class="headerlink" title="NIS客户端搭建"></a>NIS客户端搭建</h1><ol>
-<li><p>安装rpcbind，nis，配置ypdomainname</p>
+<h1>NIS客户端搭建</h1>
+<ol>
+<li>
+<p>安装rpcbind，nis，配置ypdomainname</p>
 </li>
-<li><p>修改/etc/yp.conf，主从都要写，按第一章的内容填写即可</p>
+<li>
+<p>修改/etc/yp.conf，主从都要写，按第一章的内容填写即可</p>
 </li>
-<li><p>修改/etc/nsswitch.conf，第一章内容填写即可</p>
+<li>
+<p>修改/etc/nsswitch.conf，第一章内容填写即可</p>
 </li>
-<li><p>修改/etc/pam.d/common-session，按第一章内容填写即可</p>
+<li>
+<p>修改/etc/pam.d/common-session，按第一章内容填写即可</p>
 </li>
-<li><p>重启rpcbind和nis服务</p>
-<pre><code class="bash">sudo systemctl restart rpcbind nis</code></pre>
+<li>
+<p>重启rpcbind和nis服务</p>
+<pre><code class="language-bash">sudo systemctl restart rpcbind nis
+</code></pre>
 <blockquote>
 <p>NIS客户端是不需要修改/etc/default/nis和/var/yp/Makefile，也不需要运行ypinit</p>
 </blockquote>
@@ -698,11 +733,6 @@ have just created will be used, instead of the /etc ASCII files.</code></pre>
 <!-- Katex -->
 
 
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-        
     
 
 

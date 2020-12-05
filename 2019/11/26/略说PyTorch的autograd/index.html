@@ -100,9 +100,10 @@
     <div class="article-entry" itemprop="articleBody">
        
   <ol>
-<li><p>backward()在做什么？</p>
+<li>
+<p>backward()在做什么？</p>
 <p>backward()是在根据链式法则从后往前逐层地计算梯度并且反向传播，一直进行到网络最前面的叶子节点，即输入层，计算的梯度会存储在tensor的grad中，但是需要注意的是，autograd只保留叶子节点的grad，中间的所有的tensor的grad是在完成梯度计算后会自动释放掉，如果需要去查看，需要用hook函数。举例：</p>
-<pre><code class="python">import torch
+<pre><code class="language-python">import torch
 a = torch.rand(1,2,requires_grad=True)
 b = a*2
 c = torch.mean(b)
@@ -111,14 +112,15 @@ c = torch.mean(b)
 
 print(a.grad) # (1,1) 与设想一致
 print(b.grad) # 无输出，应该是(1/2,1/2)
-print(c.grad) # 无输出，应该是1</code></pre>
+print(c.grad) # 无输出，应该是1
+</code></pre>
 </li>
-</ol>
-<ol start="2">
-<li><p>在真正的CNN中哪些地方的grad会保留下来</p>
+<li>
+<p>在真正的CNN中哪些地方的grad会保留下来</p>
 <p>在上面提到autograd只保留叶子节点的grad，因此在backward()之后CNN中间层的所有feature map的梯度都被清空了，但需要注意的是，所有层的卷积核的的weights和bias，都是叶子节点，没错，他们是叶子节点，所谓叶子节点不是说网络最前面的节点，而是它底下没有节点再与之相连了，卷积核和该层的feature map相连之后就没有继续和别的节点相连的，因此它是叶子节点，卷积核中的参数的grad是被保留下来的！但是feature map前接上一层卷积核，后接下一层的卷积核相连，不是叶子节点（画个计算图？）。同理，BN层的参数也是保留grad的。</p>
 </li>
-<li><p>backward()会进行参数更新吗？</p>
+<li>
+<p>backward()会进行参数更新吗？</p>
 <p>不会！backward()只是计算了梯度，包括问题2中提到的卷积核中参数的梯度，他们会被保留下来，然后通过optimizer.step()进行参数更新，参数更新的策略，即怎么利用backward()计算的grad来更新参数，就由optimizer的类型决定了，可以是SGD、ADAM等等</p>
 </li>
 </ol>
@@ -555,11 +557,6 @@ print(c.grad) # 无输出，应该是1</code></pre>
 <!-- Katex -->
 
 
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-        
     
 
 

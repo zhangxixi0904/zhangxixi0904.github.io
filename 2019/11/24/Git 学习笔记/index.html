@@ -99,32 +99,43 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="git-入门笔记"><a href="#git-入门笔记" class="headerlink" title="git 入门笔记"></a>git 入门笔记</h1><p>廖雪峰git教程的学习笔记</p>
-<h2 id="增删改的基本指令"><a href="#增删改的基本指令" class="headerlink" title="增删改的基本指令"></a>增删改的基本指令</h2><h3 id="增加一个文件与版本库"><a href="#增加一个文件与版本库" class="headerlink" title="增加一个文件与版本库"></a>增加一个文件与版本库</h3><pre><code class="bash">git init #初始化一个目录，会生成一个.git隐藏文件夹
+  <h1>git 入门笔记</h1>
+<p>廖雪峰git教程的学习笔记</p>
+<h2 id="增删改的基本指令">增删改的基本指令</h2>
+<h3 id="增加一个文件与版本库">增加一个文件与版本库</h3>
+<pre><code class="language-bash">git init #初始化一个目录，会生成一个.git隐藏文件夹
 
 git add FILE #添加一个新文件或者修改的文件到暂存区
 
 git status # 可以查看当前暂存区的状态——哪些文件做了增删改
 
-git commit -m “提交说明” #将暂存区的文件提交到当前仓库</code></pre>
+git commit -m “提交说明” #将暂存区的文件提交到当前仓库
+</code></pre>
 <p>这里git add和git commit看起来很类似，这里就涉及到暂存区和仓库的概念，有必要区分一下。先说一下自己的理解，暂存区是到仓库的一个中间地带，add可以多次添加文件到缓存区，commit将缓存区中的文件一次性提交到仓库。那为什么要设置一个这样的中间地带呢？个人认为是为了二次确认。</p>
-<h3 id="版本库跳转"><a href="#版本库跳转" class="headerlink" title="版本库跳转"></a>版本库跳转</h3><p>git reset可以实现跳转到历史版本库，HEAD是当前版本库的指示标志，加一个^表示上一个版本库，加几个就表示上几个版本库，但一直加不方便，可以直接指定版本编号来跳转，版本编号若是忘记了，可以用git log来查看。</p>
-<pre><code class="bash">git reset --hard HEAD^ #跳转到上一个版本库，--hard一定要加，后面会说区别
+<h3 id="版本库跳转">版本库跳转</h3>
+<p>git reset可以实现跳转到历史版本库，HEAD是当前版本库的指示标志，加一个^表示上一个版本库，加几个就表示上几个版本库，但一直加不方便，可以直接指定版本编号来跳转，版本编号若是忘记了，可以用git log来查看。</p>
+<pre><code class="language-bash">git reset --hard HEAD^ #跳转到上一个版本库，--hard一定要加，后面会说区别
 git reset --hard 1049  #跳转到特定版本库，版本编号为1049....，只需写前几位
-git log # 可以查看所有的git commit记录，忘记了编号时可以用git log查看</code></pre>
+git log # 可以查看所有的git commit记录，忘记了编号时可以用git log查看
+</code></pre>
 <p>git reset既可以跳转到过去的版本，也可以跳转到未来的版本，所谓未来的版本，是相对的，其出现必定是当前的HEAD指向的是过去的版本库，通过指定“未来”某个版本库的编号来实现跳转。但是跳转到过去的版本后，git log就只能看到在这个过去的版本之前的commit了，这是若是忘记了“未来“的版本号，应当用以下指令</p>
-<pre><code class="bash">git reflog</code></pre>
-<h3 id="查看文件差别"><a href="#查看文件差别" class="headerlink" title="查看文件差别"></a>查看文件差别</h3><p>git diff 查看文件差别，输出的是UNIX格式的文件差别</p>
-<pre><code class="bash">git diff HEAD -- README.md #查看工作区的README.md与当前版本库的区别</code></pre>
+<pre><code class="language-bash">git reflog
+</code></pre>
+<h3 id="查看文件差别">查看文件差别</h3>
+<p>git diff 查看文件差别，输出的是UNIX格式的文件差别</p>
+<pre><code class="language-bash">git diff HEAD -- README.md #查看工作区的README.md与当前版本库的区别
+</code></pre>
 <blockquote>
 <p>UNIX格式文件差别</p>
 </blockquote>
-<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><p>git checkout实现某个文件丢弃修改，退回到最近一次git commit或git add的状态，分两种情况：</p>
+<h3 id="撤销修改">撤销修改</h3>
+<p>git checkout实现某个文件丢弃修改，退回到最近一次git commit或git add的状态，分两种情况：</p>
 <ol>
 <li>如果该文件自修改后没有git add放到暂存区，那么git checkout会用当前版本HEAD中的该文件进行覆盖，以撤销修改</li>
 <li>如果该文件已经git add过一次放到暂存区了，但是又做了修改，还改错了，那么git checkout会用暂存区中的该文件进行覆盖，以撤销修改</li>
 </ol>
-<pre><code class="bash">git checkout -- README.md</code></pre>
+<pre><code class="language-bash">git checkout -- README.md
+</code></pre>
 <blockquote>
 <p>注意一定要加–，但是目前的知识还无法解释为什么，在很多地方也都见到了–。</p>
 </blockquote>
@@ -134,69 +145,91 @@ git log # 可以查看所有的git commit记录，忘记了编号时可以用git
 <li>如果git add到暂存区里的文件是写错的文件，这时git checkout没有意义。</li>
 </ol>
 <p>此时可以使用版本回退时用到的指令git reset，git reset除了可以回退版本，也可以把暂存区的修改回退到工作区。在配合git checkout，丢弃工作区的修改，既可以实现版本回退。</p>
-<pre><code class="bash">git reset HEAD README.md #将暂存区覆盖到工作区，暂存区清理该文件README.md
-git checkout -- README.md #用最新修改覆盖工作区的文件，由于暂存区已经没有README.md所以会去当前HEAD里面找。</code></pre>
-<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><p>git的删除文件实际上并不是真的删了，而是表面看起来删了，只要它曾经commit过，那么后面即使删了该文件，也可以通过版本回退的方法或者git checkout找回该文件。</p>
+<pre><code class="language-bash">git reset HEAD README.md #将暂存区覆盖到工作区，暂存区清理该文件README.md
+git checkout -- README.md #用最新修改覆盖工作区的文件，由于暂存区已经没有README.md所以会去当前HEAD里面找。
+</code></pre>
+<h3 id="删除文件">删除文件</h3>
+<p>git的删除文件实际上并不是真的删了，而是表面看起来删了，只要它曾经commit过，那么后面即使删了该文件，也可以通过版本回退的方法或者git checkout找回该文件。</p>
 <p>在工作区删除文件可以用常规的rm，但是要从版本中移除文件，要打git rm。可以先rm后git rm，或者直接git rm效果也一样。</p>
-<pre><code class="bash">git rm README.md
-git commit -m &quot;delete README.md&quot;</code></pre>
+<pre><code class="language-bash">git rm README.md
+git commit -m &quot;delete README.md&quot;
+</code></pre>
 <p>git rm和git add其实是对暂存区的一个相反的操作。如果执行了rm，再查看git status，会提示说该修改not staged for commit，和对某个文件下修改了后执行git status一样，会提示说该修改not staged for commit。如下面所示：</p>
-<pre><code class="bash">$ git status
+<pre><code class="language-bash">$ git status
 On branch master
 Changes not staged for commit:
   (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
 
-    deleted:    test.txt
+	deleted:    test.txt
 
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>有两种方式可以与远程仓库进行绑定，如下：</p>
-<h3 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h3><p>在github上新建一个repository，<strong>注意不要勾选README.md初始化</strong>，然后在本地git clone将仓库克隆下来。如果是项目从零开始，最好采用这种方式。</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><p>如果本地已经写了一些内容，想要绑定远程仓库，这种情况下同样需要有一个远程仓库，可以是已有的也可以是新建的，然后在本地</p>
-<pre><code class="bash">git remote add origin https://github.com//zhangxixi0904/git-test.git</code></pre>
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</code></pre>
+<h2 id="远程仓库">远程仓库</h2>
+<p>有两种方式可以与远程仓库进行绑定，如下：</p>
+<h3 id="克隆远程仓库">克隆远程仓库</h3>
+<p>在github上新建一个repository，<strong>注意不要勾选README.md初始化</strong>，然后在本地git clone将仓库克隆下来。如果是项目从零开始，最好采用这种方式。</p>
+<h3 id="添加远程仓库">添加远程仓库</h3>
+<p>如果本地已经写了一些内容，想要绑定远程仓库，这种情况下同样需要有一个远程仓库，可以是已有的也可以是新建的，然后在本地</p>
+<pre><code class="language-bash">git remote add origin https://github.com//zhangxixi0904/git-test.git
+</code></pre>
 <p>然后将本地仓库的内容推送至远程仓库</p>
-<pre><code class="bash">git push -u origin master</code></pre>
+<pre><code class="language-bash">git push -u origin master
+</code></pre>
 <p>第一次推送是加了-u参数，这样git可以顺便将本地的master分支与远程的master分支绑定起来。</p>
 <p>以后每次推送只需要</p>
-<pre><code class="bash">git push</code></pre>
+<pre><code class="language-bash">git push
+</code></pre>
 <p>或者完整地写上</p>
-<pre><code class="bash">git push origin master</code></pre>
+<pre><code class="language-bash">git push origin master
+</code></pre>
 <p>如果远程仓库是初始化过的，这种绑定远程仓库的方式可能会报错</p>
-<pre><code class="bash">error: failed to push some refs to &#39;https://github.com/zhangxixi0904/git-test.git&#39; 
+<pre><code class="language-bash">error: failed to push some refs to 'https://github.com/zhangxixi0904/git-test.git' 
 hint: Updates were rejected because the remote contains work that you do 
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes 
-hint: (e.g., &#39;git pull ...&#39;) before pushing again. 
-hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.
+hint: (e.g., 'git pull ...') before pushing again. 
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists.</code></pre>
+fatal: Could not read from remote repository. Please make sure you have the correct access rights and the repository exists.
+</code></pre>
 <p>需要先将远程仓库pull下来，如果有unrelated histories，即两个库的git历史记录无法不相干而无法合并，还需要加上–allow-unrelated-histories 参数，这会默认生成一次commit，需要在打开的文件中输入提交说明，完成后再进行push</p>
-<pre><code class="bash">git pull origin master
+<pre><code class="language-bash">git pull origin master
 
 git pull origin master --allow-unrelated-histories
-git push origin master</code></pre>
+git push origin master
+</code></pre>
 <p>远程仓库还有许多操作，如remove，可以在本地移除对远程仓库origin的绑定</p>
-<pre><code class="bash">git remote remove origin</code></pre>
-<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="分支的创建、合并与冲突修改"><a href="#分支的创建、合并与冲突修改" class="headerlink" title="分支的创建、合并与冲突修改"></a>分支的创建、合并与冲突修改</h3><pre><code class="bash"># 创建并切换到分支
+<pre><code class="language-bash">git remote remove origin
+</code></pre>
+<h2 id="分支管理">分支管理</h2>
+<h3 id="分支的创建-合并与冲突修改">分支的创建、合并与冲突修改</h3>
+<pre><code class="language-bash"># 创建并切换到分支
 git checkout -b dev 
 # 相当于
 git branch dev
 git checkout dev
 # 在分支上完成了工作后，切换会master分支，合并dev分支
 git checkout master
-git merge dev</code></pre>
+git merge dev
+</code></pre>
 <p>在合并时，会出现四种情形</p>
 <ul>
-<li><p>如果master自分支后没有修改过（commit），那么会自动启用fast-forward，仅仅是将master指针移动到dev指针位置，合并的速度也非常快。</p>
+<li>
+<p>如果master自分支后没有修改过（commit），那么会自动启用fast-forward，仅仅是将master指针移动到dev指针位置，合并的速度也非常快。</p>
 </li>
-<li><p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>无冲突</strong>，那么在合并时自动生成一个commit，并会弹出窗口要求写入这次commit的描述</p>
+<li>
+<p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>无冲突</strong>，那么在合并时自动生成一个commit，并会弹出窗口要求写入这次commit的描述</p>
 </li>
-<li><p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>有冲突</strong>，那么在合并时会报错，提示有冲突，输入git status会显示哪些文件有冲突。打开冲突的文件，会标识出冲突的地方，要求对冲突的地方进行修改，再做merge。注意，此时，冲突修改是只对当前分支（一般是master分支），dev分支中的冲突不会被一并修改，如果dev想要做相应的修改，还得切换到dev分支再操作。</p>
+<li>
+<p>如果master自分支后有修改过（commit），且修改的内容与dev的内容<strong>有冲突</strong>，那么在合并时会报错，提示有冲突，输入git status会显示哪些文件有冲突。打开冲突的文件，会标识出冲突的地方，要求对冲突的地方进行修改，再做merge。注意，此时，冲突修改是只对当前分支（一般是master分支），dev分支中的冲突不会被一并修改，如果dev想要做相应的修改，还得切换到dev分支再操作。</p>
 </li>
 </ul>
 <p>可以采用下面指令查看分支合并图</p>
-<pre><code class="bash">git log --graph</code></pre>
-<h3 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h3><p>在能实现fast-forward的状态下，如果采用git merge dev，那么仅仅是将master指针指向dev所在的位置，此时若删掉分支dev，会丢失分支信息（即git log不再看得出来曾经出现过dev？）</p>
+<pre><code class="language-bash">git log --graph
+</code></pre>
+<h3 id="分支管理策略">分支管理策略</h3>
+<p>在能实现fast-forward的状态下，如果采用git merge dev，那么仅仅是将master指针指向dev所在的位置，此时若删掉分支dev，会丢失分支信息（即git log不再看得出来曾经出现过dev？）</p>
 <p><img src="https://www.liaoxuefeng.com/files/attachments/919022412005504/0" alt="git-br-ff-merge"></p>
 <p>此时，可以在git merge时加上–no-ff参数，则在merge时会生成一个新的commit，删掉dev分支后，也不会丢失分支信息，可以看得出来曾经有dev分支，曾经与master做过合并。（第二种不一定就比上一种好，看需要）</p>
 <p><img src="https://www.liaoxuefeng.com/files/attachments/919023225142304/0" alt="git-no-ff-mode"></p>
@@ -209,48 +242,62 @@ git merge dev</code></pre>
 <p><img src="https://www.liaoxuefeng.com/files/attachments/919023260793600/0" alt="git-br-policy"></p>
 <p>在工作于各个分支的过程中，还有三个指令经常用到：</p>
 <ul>
-<li><p>如果在某分支上工作时，有突发事件需要其他分支上工作，此时有些工作还未提交commit，但是由于工作还未完成暂时不能提交，此时可以用stash功能保护现场，所谓的现场就是工作区。输入了下列指令后可以用git status查看工作区，正常来说是干净的。</p>
-<pre><code class="bash">git stash</code></pre>
+<li>
+<p>如果在某分支上工作时，有突发事件需要其他分支上工作，此时有些工作还未提交commit，但是由于工作还未完成暂时不能提交，此时可以用stash功能保护现场，所谓的现场就是工作区。输入了下列指令后可以用git status查看工作区，正常来说是干净的。</p>
+<pre><code class="language-bash">git stash
+</code></pre>
 <p>在突发事件的工作完成后，再切换会原来的分支，输入</p>
-<pre><code class="bash">git stash list
+<pre><code class="language-bash">git stash list
 # 会显示下面内容,可以查看有哪些保护的现场
-stash@&#123;0&#125;: WIP on dev: f52c633 add merge</code></pre>
+stash@&#123;0&#125;: WIP on dev: f52c633 add merge
+</code></pre>
 <p>之后两种方式恢复现场</p>
-<pre><code class="bash">git stash pop ## 恢复现场的同时，将stash的内容删除
+<pre><code class="language-bash">git stash pop ## 恢复现场的同时，将stash的内容删除
 git stash apply stash@&#123;0&#125; ## 仅仅恢复现场，不将stash的内容删除
-git stash drop stash@&#123;0&#125; ## 手动删除stash的内容</code></pre>
+git stash drop stash@&#123;0&#125; ## 手动删除stash的内容
+</code></pre>
 </li>
-<li><p>有时在某个分支完成的内容想复制到另一个分支，比如说master分支中存在bug，那么拉出一个bug分支解决后合并回master分支中，但是dev分支是早期从master中分出来的，dev上面肯定也存在一样的bug，要想在dev分支上复制bug分支所修复的代码，一方面当然可以手动复制，另一方面，也可以用cherry-pick，它能实现将bug分支的所做的修改合并到dev分支</p>
-<pre><code class="bash">git checkout dev # 首先确保当前是在dev分支上
-git cherry-pick 提交号</code></pre>
+<li>
+<p>有时在某个分支完成的内容想复制到另一个分支，比如说master分支中存在bug，那么拉出一个bug分支解决后合并回master分支中，但是dev分支是早期从master中分出来的，dev上面肯定也存在一样的bug，要想在dev分支上复制bug分支所修复的代码，一方面当然可以手动复制，另一方面，也可以用cherry-pick，它能实现将bug分支的所做的修改合并到dev分支</p>
+<pre><code class="language-bash">git checkout dev # 首先确保当前是在dev分支上
+git cherry-pick 提交号
+</code></pre>
 <p>这会生成一个新的提交，与之前bug分支merge到master上的提交还不一样，虽然改动相同，但确实是两个不同的commit</p>
 </li>
-<li><p>如果在某个分支上干活干到一半，突然说这个分支的工作要放弃了，此时为了保密比较销毁分支，此时</p>
-<pre><code class="bash">git branch -d feature ## 无法删除分支，会提示该分支未合并
-git bvranch -D feature ## 必须采用=D参数强制删除</code></pre>
+<li>
+<p>如果在某个分支上干活干到一半，突然说这个分支的工作要放弃了，此时为了保密比较销毁分支，此时</p>
+<pre><code class="language-bash">git branch -d feature ## 无法删除分支，会提示该分支未合并
+git bvranch -D feature ## 必须采用=D参数强制删除
+</code></pre>
 </li>
 </ul>
-<h3 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h3><p>查看远程库信息</p>
-<pre><code class="bash">git remote
+<h3 id="多人协作">多人协作</h3>
+<p>查看远程库信息</p>
+<pre><code class="language-bash">git remote
 # 或者
-git remote -V</code></pre>
+git remote -V
+</code></pre>
 <p>本地新建的分支若不推送至远程，其他人是不可见的，需要先push到远程</p>
-<pre><code class="bash">git push origin branch-name</code></pre>
+<pre><code class="language-bash">git push origin branch-name
+</code></pre>
 <p>若要删除远程的某个分支，可以</p>
-<pre><code class="bash">git push origin --delete branch-name</code></pre>
+<pre><code class="language-bash">git push origin --delete branch-name
+</code></pre>
 <p>git clone会把整个项目下载下来，但是默认只会在本地创建master分支，通过下面指令可以查看所有分支</p>
-<pre><code class="bash">git branch -a
+<pre><code class="language-bash">git branch -a
 
  * master  
   remotes/origin/HEAD -&gt; origin/master
   remotes/origin/desktop
   remotes/origin/dev
-  remotes/origin/template</code></pre>
+  remotes/origin/template
+</code></pre>
 <p>可以通过下面指令在本地创建分支并与远程的某个分支关联起来</p>
-<pre><code class="bash">git checkout -b desktop origin/desktop</code></pre>
+<pre><code class="language-bash">git checkout -b desktop origin/desktop
+</code></pre>
 <p>有时候将某分支推送至远程时，若其他人在之前已经推送过别的修改，并和自己的有冲突，则需要git pull将最新的提交抓取下来。</p>
 <p>从远程拉取时，若报错no tracking，表示本地分支与远程分支未绑定，如：</p>
-<pre><code class="bash">$ git pull
+<pre><code class="language-bash">$ git pull
 There is no tracking information for the current branch.
 Please specify which branch you want to merge with.
 See git-pull(1) for details.
@@ -259,12 +306,15 @@ See git-pull(1) for details.
 
 If you wish to set tracking information for this branch you can do so with:
 
-    git branch --set-upstream-to=origin/&lt;branch&gt; dev</code></pre>
+    git branch --set-upstream-to=origin/&lt;branch&gt; dev
+</code></pre>
 <p>按照提示，可以通过下面指令进行指定</p>
-<pre><code class="bash">$ git branch --set-upstream-to=origin/dev dev
-Branch &#39;dev&#39; set up to track remote branch &#39;dev&#39; from &#39;origin&#39;.</code></pre>
+<pre><code class="language-bash">$ git branch --set-upstream-to=origin/dev dev
+Branch 'dev' set up to track remote branch 'dev' from 'origin'.
+</code></pre>
 <p>特殊指令</p>
-<pre><code class="bash">git rebase</code></pre>
+<pre><code class="language-bash">git rebase
+</code></pre>
 <p>可以实现将分叉的提交变成简化成一条直线，这么做是为了直观</p>
  
       <!-- reward -->
@@ -694,11 +744,6 @@ Branch &#39;dev&#39; set up to track remote branch &#39;dev&#39; from &#39;origi
 <!-- Katex -->
 
 
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-        
     
 
 
