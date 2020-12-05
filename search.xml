@@ -769,7 +769,15 @@ relative_link: false
 </code></pre>
 <img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述">
 <p>这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。</p>
-<p>最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。</p>
+<h1>图床</h1>
+<p>推荐一个免费的图床，免注册，免备案，想体验图床的可以先在这里尝试下：<a href="https://pic.alexhchu.com">https://pic.alexhchu.com</a>。将图片上传后会返回一个url，然后在文章中引用图床中图片的url即可，这种既可以统一管理图片，而且加载速度也会更快；缺点免费的图床服务怕人跑路，稳定点的一般需要收费，这个就看个人选择了。</p>
+<p><img src="https://upimage.alexhchu.com/2020/12/06/6545de7148b98.jpg" alt="图片描述"></p>
+<p>在文章中引用的写法也很简单：</p>
+<pre><code># 正常的markdown引用，括号中就是图床网站返回的url
+![图片描述](https://upimage.alexhchu.com/2020/12/06/6545de7148b98.jpg) 
+</code></pre>
+<img src="https://upimage.alexhchu.com/2020/12/06/6545de7148b98.jpg" class title="图片描述">
+<p>当然也可以用html的方式引用，</p>
 ]]></content>
       <categories>
         <category>博客</category>
