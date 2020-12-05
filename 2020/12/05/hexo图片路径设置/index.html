@@ -120,6 +120,7 @@ relative_link: false
 <pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
 ![图片描述](planet.png)
 </code></pre>
+<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" alt="planet"></p>
 <p>注意是只需要写图片的名字即可，什么路径都不需要写。但是这样做在typora中无法显示图片，在下一篇博客将会讲述怎么解决这个问题。</p>
 <p>这种方法的好处是好整理，一个md文件对应一个图片资源文件夹，缺点是文章在首页展示时是看不到图片的，只有点进去文章里面才能看到图片。</p>
 <blockquote>
@@ -127,10 +128,10 @@ relative_link: false
 </blockquote>
 <h1>标签插件语法</h1>
 <p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
-<pre><code># 此时图片路径$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
+<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
 &#123;% asset_img planet.jpg 图片描述&#125;
 </code></pre>
-<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class="" title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"> 
+<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p> 
       <!-- reward -->
       
       <div id="reword-out">
