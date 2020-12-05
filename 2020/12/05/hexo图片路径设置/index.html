@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">737</span>
+            <span class="post-count">908</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">3 分钟</span>
         </span>
     </span>
 </div>
@@ -128,10 +128,13 @@ relative_link: false
 </blockquote>
 <h1>标签插件语法</h1>
 <p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
-<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-&#123;% img planet.jpg 图片描述&#125;
+<pre><code>#此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
+&#123;% asset_img planet.jpg 图片描述 %&#125;
 </code></pre>
-<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p> 
+<img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述">
+<p>这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。</p>
+<p>最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。</p>
+ 
       <!-- reward -->
       
       <div id="reword-out">
@@ -323,8 +326,6 @@ relative_link: false
     <ul>
       <li>
         <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
         
       </li>
     </ul>
