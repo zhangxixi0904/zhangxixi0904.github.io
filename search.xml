@@ -1,6 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux网络编程</title>
+    <url>/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<ul>
+<li>C++</li>
+<li>后端开发</li>
+<li>TCP/IP通信</li>
+<li>Socket</li>
+</ul>
+<p>PC间的TCP/IP、UDP网络通信是互联网的一大关键技术，关于TCP/IP以及UDP的技术在其他文章中已经介绍过，本文将聚焦如何通过Linux的接口实现多台PC间的最简单的通信。</p>
+<h2 id="常用api函数">常用API函数</h2>
+<h3 id="socket">socket</h3>
+<pre><code class="language-c++">int socket(int domain, int type, int protocol);
+</code></pre>
+<ul>
+<li>domain表示协议族，可选AF_INET/PF_INET，表示采用IPv4，AF_INET6/PF_INET6表示IPv6，PF_UNIX表示UNIX本地协议族</li>
+<li>type表示服务类型，可选SOCK_STREAM为TCP协议，SOCK_DGRAM为UDP协议</li>
+<li>protocol，一般取0即可</li>
+<li>成功返回0，失败返回-1并设置errno</li>
+</ul>
+<h3 id="bind">bind</h3>
+<pre><code class="language-c++">int bind(sockfd, const struct sockaddr* my_addr, socket_t addrlen);
+</code></pre>
+<ul>
+<li>sockfd是socket()函数的返回值</li>
+<li>my_addr是服务端地址</li>
+<li>addrlen是储存服务端地址的变量的长度sizeof</li>
+<li>成功返回0，失败返回-1并设置errno</li>
+</ul>
+<h3 id="listen">listen</h3>
+<pre><code class="language-c++">int listen(int sockfd, int backlog);
+</code></pre>
+<ul>
+<li>sockfd与上面一致</li>
+<li>backlog最大监听队列长度，若监听队列超过backlog，服务器将不受理新的客户连接，客户端会受到ECONNREFUSED信息</li>
+</ul>
+<h3 id="accept">accept</h3>
+<pre><code class="language-c++">int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+</code></pre>
+<ul>
+<li>sockfd与上面一致</li>
+<li>addr储存建立连接的客户端的ip地址，传入的实际参数通常是一个新建sockaddr_in结构体，并且初始化为0</li>
+<li>addrlen为addr的长度sizeof</li>
+<li>成功会返回一个新的socket，它用于后续真正的信息传送与接收</li>
+</ul>
+<h3 id="connect">connect</h3>
+<pre><code class="language-c++">int connect(int sockfd, const struct sockaddr *serv_addr, socklen_t addrlen);
+</code></pre>
+<ul>
+<li>sockfd是在客户端创建的socket</li>
+<li>serv_addr为服务端地址</li>
+<li>addrlen为长度sizeof</li>
+<li>成功返回-，错误返回-1并设置errno，常见的errno是ECONNREFUSED和ETIMEOUT，其含义如下：
+<ul>
+<li>ECONNREFUSED表示端口不存在，连接被拒绝</li>
+<li>ETIMEOUT表示连接超时</li>
+</ul>
+</li>
+</ul>
+<h3 id="recv">recv</h3>
+<pre><code class="language-c++">ssize_t recv(int sockfd, void *buf, size_t len, int flags);
+</code></pre>
+<ul>
+<li>sockfd为建立连接后的sock，对于服务端是accept返回的socket，对于客户端则是唯一建立的那个socket</li>
+<li>buf，存放数据的缓存，事先建立，作为实参传入</li>
+<li>len，期望的长度，实际接受的长度&lt;=期望的长度</li>
+<li>flag一般设置为0即可，设置为MSG_OOB为发送紧急数据（带外数据）</li>
+<li>成功返回实际读取到的数据的长度，失败返回-1并设置 errno</li>
+</ul>
+<h3 id="send">send</h3>
+<pre><code class="language-c++">ssize_t recv(int sockfd, const void *buf, size_t len, int flags);
+</code></pre>
+<ul>
+<li>和revc基本一致</li>
+</ul>
+<h3 id="recvfrom和sendto">recvfrom和sendto</h3>
+<p>recv和send是使用与TCP的接口，recvfrom和sendto是适用于UDP的接口</p>
+<pre><code class="language-c++">ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* src_addr, socklen_t* addrlen);
+
+ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* dest_addr, socklen_t* addrlen);
+</code></pre>
+<p>多了两个参数：</p>
+<ul>
+<li>src_addr或是dest_addr，表示所要发送的地址或所要接收的地址，因为UDP不是面向连接的，所以每次传送或接受信息都要指定地址</li>
+<li>addrlen长度sizeof</li>
+</ul>
+<h3 id="close">close</h3>
+<pre><code class="language-c++">int close(int fd);
+</code></pre>
+<ul>
+<li>fd是待关闭的socket</li>
+<li>并非立刻关闭，而是将fd的引用计数减1，只有fd的引用计数为0时，才真正关闭</li>
+<li>非要立刻关闭可以用</li>
+</ul>
+<pre><code class="language-c++">int shutdown(int sockfd, int howto)
+</code></pre>
+<ul>
+<li>howto可选SHUT_RD关闭读的一半，SHUT_WR关闭写的一半，SHUT_RDWR同时关闭读写</li>
+</ul>
+<h2 id="hello-world示例">hello-world示例</h2>
+<h3 id="环境说明">环境说明</h3>
+<p>一共设置了三台PC，腾讯云的一台centos 7服务器作为服务端，本地在Virtual Box开启两台ubuntu18.04虚拟机作为客户端。</p>
+<h3 id="端口开放设置">端口开放设置</h3>
+<p>ubuntu18.04默认防火墙ufw一般不会开启，如果启用了，需要增添规则开放通信端口</p>
+<p>腾讯云的centos 7服务器的端口设置需要注意两点：</p>
+<ul>
+<li>需要在腾讯云控制台的安全组设置中开放需要通信端口，不过一般默认是全开放，为了安全可以全关闭后只开放特定端口</li>
+<li>centos 7 默认采用iptables防火墙，对于iptables防火墙的具体介绍打算在新开一个坑进行介绍，这里只做简单说明。服务端准备采用3400端口进行通信，则需要</li>
+</ul>
+<pre><code class="language-bash">iptables -I INPUT 2 -p tcp --dport 3400 -j ACCEPT 
+service iptables save
+service iptables restart
+</code></pre>
+<p><em>第一行指令：表示在规则链开头第二条的位置新增一个针对流入信息的规则，该规则接受3400端口的TCP应用服务。第二条指令对规则进行保存，否则重启服务或重启服务器会失效，第三条重启服务（好像不一定要重启服务）</em></p>
+<h3 id="关键代码">关键代码</h3>
+<p>[]: <a href="https://github.com/zhangxixi0904/Cpp-Network.git">https://github.com/zhangxixi0904/Cpp-Network.git</a>	“Linux网络编程的hello-world”</p>
+<h3 id="运行效果">运行效果</h3>
+<p>在服务端运行</p>
+<pre><code class="language-bash">./tcp_net_server 172.0.5.171 3400 # 172.0.5.171是腾讯云的内网地址
+</code></pre>
+<p>在客户端分别运行</p>
+<pre><code class="language-bash">./tcp_net_client 服务端外网ip 3400
+</code></pre>
+<p><img src="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/C:%5CUsers%5C91721%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200703113412962.png" alt="客户端显示"></p>
+<p><img src="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/C:%5CUsers%5C91721%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200703113505425.png" alt="服务端显示"></p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li>
+<p><a href="https://www.cnblogs.com/jfyl1573/p/6476607.html">https://www.cnblogs.com/jfyl1573/p/6476607.html</a></p>
+</li>
+<li>
+<p>Linux高性能服务器编程 游双</p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/bazingafraser/p/8507602.html">https://www.cnblogs.com/bazingafraser/p/8507602.html</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>程序设计</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Git学习笔记</title>
     <url>/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1>git 入门笔记</h1>
@@ -441,148 +583,6 @@ have just created will be used, instead of the /etc ASCII files.
       </tags>
   </entry>
   <entry>
-    <title>Linux网络编程</title>
-    <url>/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<ul>
-<li>C++</li>
-<li>后端开发</li>
-<li>TCP/IP通信</li>
-<li>Socket</li>
-</ul>
-<p>PC间的TCP/IP、UDP网络通信是互联网的一大关键技术，关于TCP/IP以及UDP的技术在其他文章中已经介绍过，本文将聚焦如何通过Linux的接口实现多台PC间的最简单的通信。</p>
-<h2 id="常用api函数">常用API函数</h2>
-<h3 id="socket">socket</h3>
-<pre><code class="language-c++">int socket(int domain, int type, int protocol);
-</code></pre>
-<ul>
-<li>domain表示协议族，可选AF_INET/PF_INET，表示采用IPv4，AF_INET6/PF_INET6表示IPv6，PF_UNIX表示UNIX本地协议族</li>
-<li>type表示服务类型，可选SOCK_STREAM为TCP协议，SOCK_DGRAM为UDP协议</li>
-<li>protocol，一般取0即可</li>
-<li>成功返回0，失败返回-1并设置errno</li>
-</ul>
-<h3 id="bind">bind</h3>
-<pre><code class="language-c++">int bind(sockfd, const struct sockaddr* my_addr, socket_t addrlen);
-</code></pre>
-<ul>
-<li>sockfd是socket()函数的返回值</li>
-<li>my_addr是服务端地址</li>
-<li>addrlen是储存服务端地址的变量的长度sizeof</li>
-<li>成功返回0，失败返回-1并设置errno</li>
-</ul>
-<h3 id="listen">listen</h3>
-<pre><code class="language-c++">int listen(int sockfd, int backlog);
-</code></pre>
-<ul>
-<li>sockfd与上面一致</li>
-<li>backlog最大监听队列长度，若监听队列超过backlog，服务器将不受理新的客户连接，客户端会受到ECONNREFUSED信息</li>
-</ul>
-<h3 id="accept">accept</h3>
-<pre><code class="language-c++">int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
-</code></pre>
-<ul>
-<li>sockfd与上面一致</li>
-<li>addr储存建立连接的客户端的ip地址，传入的实际参数通常是一个新建sockaddr_in结构体，并且初始化为0</li>
-<li>addrlen为addr的长度sizeof</li>
-<li>成功会返回一个新的socket，它用于后续真正的信息传送与接收</li>
-</ul>
-<h3 id="connect">connect</h3>
-<pre><code class="language-c++">int connect(int sockfd, const struct sockaddr *serv_addr, socklen_t addrlen);
-</code></pre>
-<ul>
-<li>sockfd是在客户端创建的socket</li>
-<li>serv_addr为服务端地址</li>
-<li>addrlen为长度sizeof</li>
-<li>成功返回-，错误返回-1并设置errno，常见的errno是ECONNREFUSED和ETIMEOUT，其含义如下：
-<ul>
-<li>ECONNREFUSED表示端口不存在，连接被拒绝</li>
-<li>ETIMEOUT表示连接超时</li>
-</ul>
-</li>
-</ul>
-<h3 id="recv">recv</h3>
-<pre><code class="language-c++">ssize_t recv(int sockfd, void *buf, size_t len, int flags);
-</code></pre>
-<ul>
-<li>sockfd为建立连接后的sock，对于服务端是accept返回的socket，对于客户端则是唯一建立的那个socket</li>
-<li>buf，存放数据的缓存，事先建立，作为实参传入</li>
-<li>len，期望的长度，实际接受的长度&lt;=期望的长度</li>
-<li>flag一般设置为0即可，设置为MSG_OOB为发送紧急数据（带外数据）</li>
-<li>成功返回实际读取到的数据的长度，失败返回-1并设置 errno</li>
-</ul>
-<h3 id="send">send</h3>
-<pre><code class="language-c++">ssize_t recv(int sockfd, const void *buf, size_t len, int flags);
-</code></pre>
-<ul>
-<li>和revc基本一致</li>
-</ul>
-<h3 id="recvfrom和sendto">recvfrom和sendto</h3>
-<p>recv和send是使用与TCP的接口，recvfrom和sendto是适用于UDP的接口</p>
-<pre><code class="language-c++">ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* src_addr, socklen_t* addrlen);
-
-ssize_t recvfrom(int sockfd, void* buf, sieze_t len, int flags, struct sockaddr* dest_addr, socklen_t* addrlen);
-</code></pre>
-<p>多了两个参数：</p>
-<ul>
-<li>src_addr或是dest_addr，表示所要发送的地址或所要接收的地址，因为UDP不是面向连接的，所以每次传送或接受信息都要指定地址</li>
-<li>addrlen长度sizeof</li>
-</ul>
-<h3 id="close">close</h3>
-<pre><code class="language-c++">int close(int fd);
-</code></pre>
-<ul>
-<li>fd是待关闭的socket</li>
-<li>并非立刻关闭，而是将fd的引用计数减1，只有fd的引用计数为0时，才真正关闭</li>
-<li>非要立刻关闭可以用</li>
-</ul>
-<pre><code class="language-c++">int shutdown(int sockfd, int howto)
-</code></pre>
-<ul>
-<li>howto可选SHUT_RD关闭读的一半，SHUT_WR关闭写的一半，SHUT_RDWR同时关闭读写</li>
-</ul>
-<h2 id="hello-world示例">hello-world示例</h2>
-<h3 id="环境说明">环境说明</h3>
-<p>一共设置了三台PC，腾讯云的一台centos 7服务器作为服务端，本地在Virtual Box开启两台ubuntu18.04虚拟机作为客户端。</p>
-<h3 id="端口开放设置">端口开放设置</h3>
-<p>ubuntu18.04默认防火墙ufw一般不会开启，如果启用了，需要增添规则开放通信端口</p>
-<p>腾讯云的centos 7服务器的端口设置需要注意两点：</p>
-<ul>
-<li>需要在腾讯云控制台的安全组设置中开放需要通信端口，不过一般默认是全开放，为了安全可以全关闭后只开放特定端口</li>
-<li>centos 7 默认采用iptables防火墙，对于iptables防火墙的具体介绍打算在新开一个坑进行介绍，这里只做简单说明。服务端准备采用3400端口进行通信，则需要</li>
-</ul>
-<pre><code class="language-bash">iptables -I INPUT 2 -p tcp --dport 3400 -j ACCEPT 
-service iptables save
-service iptables restart
-</code></pre>
-<p><em>第一行指令：表示在规则链开头第二条的位置新增一个针对流入信息的规则，该规则接受3400端口的TCP应用服务。第二条指令对规则进行保存，否则重启服务或重启服务器会失效，第三条重启服务（好像不一定要重启服务）</em></p>
-<h3 id="关键代码">关键代码</h3>
-<p>[]: <a href="https://github.com/zhangxixi0904/Cpp-Network.git">https://github.com/zhangxixi0904/Cpp-Network.git</a>	“Linux网络编程的hello-world”</p>
-<h3 id="运行效果">运行效果</h3>
-<p>在服务端运行</p>
-<pre><code class="language-bash">./tcp_net_server 172.0.5.171 3400 # 172.0.5.171是腾讯云的内网地址
-</code></pre>
-<p>在客户端分别运行</p>
-<pre><code class="language-bash">./tcp_net_client 服务端外网ip 3400
-</code></pre>
-<p><img src="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/C:%5CUsers%5C91721%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200703113412962.png" alt="客户端显示"></p>
-<p><img src="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/C:%5CUsers%5C91721%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200703113505425.png" alt="服务端显示"></p>
-<h2 id="参考文献">参考文献</h2>
-<ol>
-<li>
-<p><a href="https://www.cnblogs.com/jfyl1573/p/6476607.html">https://www.cnblogs.com/jfyl1573/p/6476607.html</a></p>
-</li>
-<li>
-<p>Linux高性能服务器编程 游双</p>
-</li>
-<li>
-<p><a href="https://www.cnblogs.com/bazingafraser/p/8507602.html">https://www.cnblogs.com/bazingafraser/p/8507602.html</a></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>程序设计</category>
-      </categories>
-  </entry>
-  <entry>
     <title>hexo+typora的图片路径问题</title>
     <url>/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>上一篇的博客<a href="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/" title="hexo图片路径设置">hexo图片路径设置</a>讲到了如何在hexo博客中插入图片，那里留下了一个坑：尽管最后的图片能够在hexo中显示出来，但是在typora中却无法正常显示，解决的方案分为四步：</p>
@@ -776,24 +776,6 @@ relative_link: false
       </tags>
   </entry>
   <entry>
-    <title>深度学习炼丹术</title>
-    <url>/2019/11/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E6%9C%AF/</url>
-    <content><![CDATA[<h1>测试集和验证集</h1>
-<p>验证集是用来辅助训练的，而测试集是最终评判的指标，它在整个训练过程中应当是不可见的。验证集的辅助作用体现在：</p>
-<ol>
-<li>通过观察验证Loss曲线，调整模型的结构，包括神经元数量、层数等等。</li>
-<li>通过观察验证Loss曲线，调整训练策略，比如过拟合时需要及时停止，数据集样本不足需要数据增强，关于这些情况的观察，可以查阅我另一篇博客《损失曲线能告诉我们什么》</li>
-</ol>
-<p>而测试集比较好理解，就是最终判断模型的泛化性能的。很多时候看文章都没有提到验证集，因为它的确不是必要的，但如果调参感觉没有方向，可以加个验证集观察一下，多次验证以寻找模型的最佳训练策略和最佳结构。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>trick</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>损失曲线能告诉我们什么</title>
     <url>/2019/11/27/%E6%8D%9F%E5%A4%B1%E6%9B%B2%E7%BA%BF%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88/</url>
     <content><![CDATA[<blockquote>
@@ -813,6 +795,24 @@ relative_link: false
 ]]></content>
       <categories>
         <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>trick</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习炼丹术</title>
+    <url>/2019/11/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E6%9C%AF/</url>
+    <content><![CDATA[<h1>测试集和验证集</h1>
+<p>验证集是用来辅助训练的，而测试集是最终评判的指标，它在整个训练过程中应当是不可见的。验证集的辅助作用体现在：</p>
+<ol>
+<li>通过观察验证Loss曲线，调整模型的结构，包括神经元数量、层数等等。</li>
+<li>通过观察验证Loss曲线，调整训练策略，比如过拟合时需要及时停止，数据集样本不足需要数据增强，关于这些情况的观察，可以查阅我另一篇博客《损失曲线能告诉我们什么》</li>
+</ol>
+<p>而测试集比较好理解，就是最终判断模型的泛化性能的。很多时候看文章都没有提到验证集，因为它的确不是必要的，但如果调参感觉没有方向，可以加个验证集观察一下，多次验证以寻找模型的最佳训练策略和最佳结构。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
       </categories>
       <tags>
         <tag>trick</tag>
