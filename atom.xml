@@ -6,7 +6,7 @@
   <link href="https://zhangxixi0904.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://zhangxixi0904.gitee.io/"/>
-  <updated>2020-12-05T02:04:38.089Z</updated>
+  <updated>2020-12-05T03:47:52.542Z</updated>
   <id>https://zhangxixi0904.gitee.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhangxixi0904.gitee.io/2020/12/05/word2vec/"/>
     <id>https://zhangxixi0904.gitee.io/2020/12/05/word2vec/</id>
     <published>2020-12-05T01:49:00.000Z</published>
-    <updated>2020-12-05T02:04:38.089Z</updated>
+    <updated>2020-12-05T03:47:52.542Z</updated>
     
     
       
@@ -46,15 +46,16 @@
     <link href="https://zhangxixi0904.gitee.io/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/"/>
     <id>https://zhangxixi0904.gitee.io/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</id>
     <published>2020-12-04T16:00:00.000Z</published>
-    <updated>2020-12-05T03:35:43.635Z</updated>
+    <updated>2020-12-05T08:06:15.256Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;hexo插入图片的方式有以下三种：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;Picture1.png&quot;</summary>
+    <summary type="html">&lt;p&gt;hexo插入图片的方式有四种：绝对路径、相对路径、标签插件语法、CDN图床，下面将主要介绍前三种。&lt;/p&gt;
+&lt;h1&gt;绝对路径&lt;/h1&gt;
+&lt;p&gt;这种方法最简单，不需要修改任何配置，将图片放在${博客根路径}/source/images/下，然后在文章里面，用这种方式引用：&lt;/</summary>
         
       
     

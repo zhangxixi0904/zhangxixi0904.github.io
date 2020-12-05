@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">13</span>
+            <span class="post-count">737</span>
         </span>
     </span>
 
@@ -86,22 +86,51 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>hexo插入图片的方式有以下三种：</p>
-<p><img src="Picture1.png" alt="Picture1"></p>
- 
+  <p>hexo插入图片的方式有四种：绝对路径、相对路径、标签插件语法、CDN图床，下面将主要介绍前三种。</p>
+<h1>绝对路径</h1>
+<p>这种方法最简单，不需要修改任何配置，将图片放在${博客根路径}/source/images/下，然后在文章里面，用这种方式引用：</p>
+<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/images/planet.jpg
+![图片描述](/images/planet.jpg)
+</code></pre>
+<p><img src="/images/planet.jpg" alt="planet"></p>
+<p>这种方法的好处是简单、博客的首页以及点击进入文章内都可以看到图片，缺点是如果文章很多，图片全都堆在images文件下会显得很凌乱，不好整理。</p>
+<h1>相对路径</h1>
+<p>这种方式需要修改${博客根路径}下hexo的配置文件_config.yml，将下面post_asset_folder属性改为true:</p>
+<pre><code>render_drafts: false
+post_asset_folder: true # 这一行改为true
+relative_link: false
+</code></pre>
+<p>之后通过治疗hexo new “new_article”，在${博客根路径}/source/_posts文件夹下同时生成一个空的new_article.md文件以及与文件同名的空文件夹new_article，当然不一定要用hexo new指令，自己在文件夹下创建md文件的同时，新建一个与md文件同名的文件夹也是可以的。</p>
+<p>将图片放在new_article文件夹下，并在文章中用下面方式引用即可：</p>
+<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
+![图片描述](planet.png)
+</code></pre>
+<p>注意是只需要写图片的名字即可，什么路径都不需要写。但是这样做在typora中无法显示图片，在下一篇博客将会讲述怎么解决这个问题。</p>
+<p>这种方法的好处是好整理，一个md文件对应一个图片资源文件夹，缺点是文章在首页展示时是看不到图片的，只有点进去文章里面才能看到图片。</p>
+<blockquote>
+<p>这里需要强调一下md文件名和博客文章名是可以不一样的，md文件名就是表面意思：md文件的名称，博客文章名是在md文件里面Front-matter设置的title属性，这个才是访客访问你的文章时所看到的标题。通常为了避免中文字符带来的一些路径上五花八门的bug，可以将md文件用英文命名，反正别人也看不到，而你希望别人看的文章标题，可以在md文件里的title属性中自由设置。</p>
+</blockquote>
+<h1>标签插件语法</h1>
+<p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
+<pre><code># 此时图片路径$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
+&#123;% asset_img planet.jpg 图片描述&#125;
+</code></pre>
+<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class="" title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"> 
       <!-- reward -->
       
       <div id="reword-out">
