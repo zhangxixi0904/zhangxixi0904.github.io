@@ -583,6 +583,48 @@ have just created will be used, instead of the /etc ASCII files.
       </tags>
   </entry>
   <entry>
+    <title>hexo+typora的图片路径问题</title>
+    <url>/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>上一篇的博客{ % post_link hexo图片路径设置 %}讲到了如何在hexo博客中插入图片，那里留下了一个坑：尽管最后的图片能够在hexo中显示出来，但是在typora中却无法正常显示，解决的方案分为四步：</p>
+<ol>
+<li>
+<p>安装asset-image插件</p>
+<pre><code>npm install https://github.com/CodeFalling/hexo-asset-image
+</code></pre>
+</li>
+<li>
+<p>配置_config.yml中的post_asset_folder 参数为 true</p>
+</li>
+<li>
+<p>打开typora的偏好设置Preferences，设置插入图片时自动将其复制到与md文件同名的文件夹下，并且在第1、3项打勾：</p>
+<p><img src="/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/image-20201205170020521.png" alt="image-20201205170020521"></p>
+</li>
+<li>
+<p>之后插入图片时，就像之前使用typora一样，直接拖入即可，图片的路径会被自动设置好，正常来说如果你的md文件名为new_article.md，那么在typora中会显示图片放置在：</p>
+<pre><code>new_article/plannet.jpg
+</code></pre>
+</li>
+</ol>
+<p>事实上也确实能在该路径下找到图片，此时在typora也可以看到图片正常显示，最后再运行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s，到博客查看，正常来说首页和文章内都可以看到图片正常显示。</p>
+<p>最后注意两点：</p>
+<ol>
+<li>
+<p>安装了第一步的插件后，上一篇博客所说的相对路径法就可以同时在首页和文章中显示，在上次也提到，相对路径中只能写图片名，即</p>
+<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
+![图片描述](planet.jpg)
+</code></pre>
+<p>如果写上完整的相对路径名new_article/planet.jpg，反而无法在博客中显示，但是安装插件后就没有这个问题，写不写new_article都行，只是写上完整的相对路径名可以在typora中显示图片，在typora正常显示图片也是我们想要的。</p>
+</li>
+<li>
+<p>md文件名及其同名文件夹如果有中文，可能会显示不正常，如果发现上述方法不成功，可以首先概率将md文件以及同名文件夹用英文命名，像这里的new_article。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+  </entry>
+  <entry>
     <title>hexo图片路径设置</title>
     <url>/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<p>hexo插入图片的方式有四种：绝对路径、相对路径、标签插件语法、CDN图床，下面将主要介绍前三种。</p>
@@ -602,7 +644,7 @@ relative_link: false
 <p>之后通过治疗hexo new “new_article”，在${博客根路径}/source/_posts文件夹下同时生成一个空的new_article.md文件以及与文件同名的空文件夹new_article，当然不一定要用hexo new指令，自己在文件夹下创建md文件的同时，新建一个与md文件同名的文件夹也是可以的。</p>
 <p>将图片放在new_article文件夹下，并在文章中用下面方式引用即可：</p>
 <pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-![图片描述](planet.png)
+![图片描述](planet.jpg)
 </code></pre>
 <p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" alt="planet"></p>
 <p>注意是只需要写图片的名字即可，什么路径都不需要写。但是这样做在typora中无法显示图片，在下一篇博客将会讲述怎么解决这个问题。</p>
@@ -613,9 +655,9 @@ relative_link: false
 <h1>标签插件语法</h1>
 <p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
 <pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-&#123;% asset_img planet.jpg 图片描述&#125;
+&#123;% img planet.jpg 图片描述&#125;
 </code></pre>
-<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p>]]></content>
+<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p>]]></content>
       <categories>
         <category>博客</category>
       </categories>

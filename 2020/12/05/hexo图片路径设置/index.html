@@ -118,7 +118,7 @@ relative_link: false
 <p>之后通过治疗hexo new “new_article”，在${博客根路径}/source/_posts文件夹下同时生成一个空的new_article.md文件以及与文件同名的空文件夹new_article，当然不一定要用hexo new指令，自己在文件夹下创建md文件的同时，新建一个与md文件同名的文件夹也是可以的。</p>
 <p>将图片放在new_article文件夹下，并在文章中用下面方式引用即可：</p>
 <pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-![图片描述](planet.png)
+![图片描述](planet.jpg)
 </code></pre>
 <p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" alt="planet"></p>
 <p>注意是只需要写图片的名字即可，什么路径都不需要写。但是这样做在typora中无法显示图片，在下一篇博客将会讲述怎么解决这个问题。</p>
@@ -129,9 +129,9 @@ relative_link: false
 <h1>标签插件语法</h1>
 <p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
 <pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-&#123;% asset_img planet.jpg 图片描述&#125;
+&#123;% img planet.jpg 图片描述&#125;
 </code></pre>
-<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p> 
+<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述}&lt;&#x2F;p&gt; &lt;p&gt;这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。&lt;&#x2F;p&gt; &lt;p&gt;最后一种高级方法是将图片上传到图床中，在文章中引用图床中图片的url，这通常会在CDN中进行，既可以统一管理图片，而且加载速度也会更快，这将在另一篇博客中介绍。&lt;&#x2F;p&gt;"></p> 
       <!-- reward -->
       
       <div id="reword-out">
@@ -212,11 +212,11 @@ relative_link: false
    
   <nav class="article-nav">
     
-      <a href="/2020/12/05/word2vec/" class="article-nav-link">
+      <a href="/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            CS224N笔记：word2vec超详细解析
+            hexo+typora的图片路径问题
           
         </div>
       </a>

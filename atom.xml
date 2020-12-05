@@ -6,7 +6,7 @@
   <link href="https://zhangxixi0904.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://zhangxixi0904.gitee.io/"/>
-  <updated>2020-12-05T03:47:52.542Z</updated>
+  <updated>2020-12-05T08:38:17.989Z</updated>
   <id>https://zhangxixi0904.gitee.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhangxixi0904.gitee.io/2020/12/05/word2vec/"/>
     <id>https://zhangxixi0904.gitee.io/2020/12/05/word2vec/</id>
     <published>2020-12-05T01:49:00.000Z</published>
-    <updated>2020-12-05T03:47:52.542Z</updated>
+    <updated>2020-12-05T08:38:17.989Z</updated>
     
     
       
@@ -42,11 +42,34 @@
   </entry>
   
   <entry>
+    <title>hexo+typora的图片路径问题</title>
+    <link href="https://zhangxixi0904.gitee.io/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://zhangxixi0904.gitee.io/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/</id>
+    <published>2020-12-04T16:00:00.000Z</published>
+    <updated>2020-12-05T09:23:52.591Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇的博客{ % post_link hexo图片路径设置</summary>
+        
+      
+    
+    
+    
+    <category term="Markdown" scheme="https://zhangxixi0904.gitee.io/categories/Markdown/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>hexo图片路径设置</title>
     <link href="https://zhangxixi0904.gitee.io/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/"/>
     <id>https://zhangxixi0904.gitee.io/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</id>
     <published>2020-12-04T16:00:00.000Z</published>
-    <updated>2020-12-05T08:31:40.828Z</updated>
+    <updated>2020-12-05T09:29:43.748Z</updated>
     
     
       
@@ -250,7 +273,7 @@
     <link href="https://zhangxixi0904.gitee.io/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>https://zhangxixi0904.gitee.io/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-11-23T17:25:00.000Z</published>
-    <updated>2020-12-04T03:09:29.355Z</updated>
+    <updated>2020-12-05T08:38:28.178Z</updated>
     
     
       
