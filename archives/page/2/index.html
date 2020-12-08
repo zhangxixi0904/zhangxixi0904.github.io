@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    hexo图片路径设置 |  黑黑的Blog
+    归档 |  黑黑的Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -46,251 +46,56 @@
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="post-hexo图片路径设置"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">归档</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2019" class="archive-year">2019</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  <time datetime="2019-11-23T17:25:00.000Z" itemprop="datePublished">11/24</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  hexo图片路径设置
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+    >Git学习笔记</a> 
+</h2>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/" class="article-date">
-  <time datetime="2020-12-04T16:00:00.000Z" itemprop="datePublished">2020-12-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a>
+    
+    
   </div>
-  
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.1k</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
-
-
-
-
-  
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>hexo插入图片的方式有四种：绝对路径、相对路径、标签插件语法、CDN图床，下面将主要介绍前三种。</p>
-<h1>绝对路径</h1>
-<p>这种方法最简单，不需要修改任何配置，将图片放在${博客根路径}/source/images/下，然后在文章里面，用这种方式引用：</p>
-<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/images/planet.jpg
-![图片描述](/images/planet.jpg)
-</code></pre>
-<p><img src="/images/planet.jpg" alt="planet"></p>
-<p>这种方法的好处是简单、博客的首页以及点击进入文章内都可以看到图片，缺点是如果文章很多，图片全都堆在images文件下会显得很凌乱，不好整理。</p>
-<h1>相对路径</h1>
-<p>这种方式需要修改${博客根路径}下hexo的配置文件_config.yml，将下面post_asset_folder属性改为true:</p>
-<pre><code>render_drafts: false
-post_asset_folder: true # 这一行改为true
-relative_link: false
-</code></pre>
-<p>之后通过治疗hexo new “new_article”，在${博客根路径}/source/_posts文件夹下同时生成一个空的new_article.md文件以及与文件同名的空文件夹new_article，当然不一定要用hexo new指令，自己在文件夹下创建md文件的同时，新建一个与md文件同名的文件夹也是可以的。</p>
-<p>将图片放在new_article文件夹下，并在文章中用下面方式引用即可：</p>
-<pre><code># 此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-![图片描述](planet.jpg)
-</code></pre>
-<p><img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" alt="planet"></p>
-<p>注意是只需要写图片的名字即可，什么路径都不需要写。但是这样做在typora中无法显示图片，在下一篇博客将会讲述怎么解决这个问题。</p>
-<p>这种方法的好处是好整理，一个md文件对应一个图片资源文件夹，缺点是文章在首页展示时是看不到图片的，只有点进去文章里面才能看到图片。</p>
-<blockquote>
-<p>这里需要强调一下md文件名和博客文章名是可以不一样的，md文件名就是表面意思：md文件的名称，博客文章名是在md文件里面Front-matter设置的title属性，这个才是访客访问你的文章时所看到的标题。通常为了避免中文字符带来的一些路径上五花八门的bug，可以将md文件用英文命名，反正别人也看不到，而你希望别人看的文章标题，可以在md文件里的title属性中自由设置。</p>
-</blockquote>
-<h1>标签插件语法</h1>
-<p>这种方法结合上述两种方法的优点，既可以将每篇文章的图片分开存储，又可以同时支持在首页和文章内显示图片。它同样需要修改post_asset_folder参数，图片的放置也和相对路径法一样，只是在文章中引用图片时，需要用以下方式：</p>
-<pre><code>#此时图片路径：$&#123;博客根路径&#125;/source/_posts/new_article/planet.jpg
-&#123;% asset_img planet.jpg 图片描述 %&#125;
-</code></pre>
-<img src="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/planet.jpg" class title="图片描述">
-<p>这种方式是hexo官方的解决方案，但是它仍然存在问题，即在typora中是无法解析这种写法的，所以在typora中显示的一行冷冰冰的文字，在写作时极为不便。此外，另外两种方式也是存在在typora中无法正常显示图片的问题，这将在下一篇博客中阐述如何解决。</p>
-<h1>图床</h1>
-<p>推荐一个免费的图床，免注册，免备案，想体验图床的可以先在这里尝试下：<a target="_blank" rel="noopener" href="https://pic.alexhchu.com">https://pic.alexhchu.com</a>。将图片上传后会返回一个url，然后在文章中引用图床中图片的url即可，这种方法既可以统一管理图片，而且加载速度也会更快；缺点是免费的图床服务怕人跑路，稳定点的一般需要收费。</p>
-<p><img src="https://upimage.alexhchu.com/2020/12/06/6545de7148b98.jpg" alt="图片描述"></p>
-<p>在文章中引用的具体写法如下：</p>
-<pre><code># 正常的markdown引用，括号中就是图床网站返回的url
-![图片描述](https://upimage.alexhchu.com/2020/12/06/6545de7148b98.jpg) 
-</code></pre>
-<p>当然，利用github可以自建图床，配合jsdeliver加速，并用picgo作为上传工具，这一套流程下来全免费，typora上也可以设置picgo自动上传图片，可以参考这篇博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/roccoshi/p/13183890.html%EF%BC%8C%E9%87%8C%E9%9D%A2%E5%B7%B2%E7%BB%8F%E5%86%99%E5%BE%97%E5%BE%88%E8%AF%A6%E7%BB%86%E4%BA%86%E3%80%82">https://www.cnblogs.com/roccoshi/p/13183890.html，里面已经写得很详细了。</a></p>
- 
-      <!-- reward -->
-      
-      <div id="reword-out">
-        <div id="reward-btn">
-          打赏
-        </div>
-      </div>
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <div class="declare">
-      <ul class="post-copyright">
-        <li>
-          <i class="ri-copyright-line"></i>
-          <strong>版权声明： </strong>
-          
-          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
-          
-        </li>
-      </ul>
-    </div>
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://zhangxixi0904.github.io/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>  
-    </footer>
-  </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            hexo+typora的图片路径问题
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Linux网络编程</div>
-      </a>
-    
-  </nav>
-
-   
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "1Y9hFegQFNbDz9YgYPgYkwM7-gzGzoHsz",
-    app_key: "BlKsp9lPaqY6Nmvd6jRHyUxd",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
- 
-     
 </article>
+      
+      
+    </div>
+  </div>
+  
+  
 
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/archives/">上一页</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+  </nav>
+  
 </section>
       <footer class="footer">
   <div class="outer">
@@ -442,23 +247,6 @@ relative_link: false
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto'
-  });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
