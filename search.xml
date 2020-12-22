@@ -222,11 +222,11 @@ Branch 'dev' set up to track remote branch 'dev' from 'origin'.
 <p>可以实现将分叉的提交变成简化成一条直线，这么做是为了直观</p>
 ]]></content>
       <categories>
-        <category>程序设计</category>
+        <category>编程素养</category>
       </categories>
       <tags>
         <tag>Git</tag>
-        <tag>程序员素养</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
@@ -433,11 +433,13 @@ have just created will be used, instead of the /etc ASCII files.
 <p>​        至此，NIS客户端配置完成</p>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>408基础</category>
       </categories>
       <tags>
         <tag>linux</tag>
         <tag>运维</tag>
+        <tag>NIS</tag>
+        <tag>安装教程</tag>
       </tags>
   </entry>
   <entry>
@@ -579,8 +581,12 @@ service iptables restart
 </ol>
 ]]></content>
       <categories>
-        <category>程序设计</category>
+        <category>408基础</category>
       </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>API</tag>
+      </tags>
   </entry>
   <entry>
     <title>hexo+typora的图片路径问题</title>
@@ -624,8 +630,11 @@ service iptables restart
 </ol>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>软件工具</category>
       </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
   </entry>
   <entry>
     <title>CS224N笔记：word2vec超详细解析</title>
@@ -728,10 +737,13 @@ service iptables restart
 </ol>
 ]]></content>
       <categories>
-        <category>NLP</category>
+        <category>深度学习</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
+        <tag>NLP</tag>
+        <tag>CS224N</tag>
+        <tag>skip-gram</tag>
+        <tag>CBOW</tag>
       </tags>
   </entry>
   <entry>
@@ -779,8 +791,11 @@ relative_link: false
 <p>当然，利用github可以自建图床，配合jsdeliver加速，并用picgo作为上传工具，这一套流程下来全免费，typora上也可以设置picgo自动上传图片，可以参考这篇博客：<a href="https://www.cnblogs.com/roccoshi/p/13183890.html%EF%BC%8C">https://www.cnblogs.com/roccoshi/p/13183890.html，</a> 里面已经写得很详细了。</p>
 ]]></content>
       <categories>
-        <category>博客</category>
+        <category>软件工具</category>
       </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
   </entry>
   <entry>
     <title>损失曲线能告诉我们什么</title>
@@ -801,10 +816,11 @@ relative_link: false
 </ol>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>深度学习</category>
       </categories>
       <tags>
-        <tag>trick</tag>
+        <tag>损失函数</tag>
+        <tag>tricks</tag>
       </tags>
   </entry>
   <entry>
@@ -822,7 +838,7 @@ relative_link: false
         <category>深度学习</category>
       </categories>
       <tags>
-        <tag>trick</tag>
+        <tag>tricks</tag>
       </tags>
   </entry>
   <entry>
@@ -835,10 +851,10 @@ relative_link: false
 </ol>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>大数据开发</category>
       </categories>
       <tags>
-        <tag>业余</tag>
+        <tag>爬虫</tag>
       </tags>
   </entry>
   <entry>
@@ -871,11 +887,12 @@ print(c.grad) # 无输出，应该是1
 </ol>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>深度学习</category>
       </categories>
       <tags>
         <tag>pytorch</tag>
         <tag>反向传播</tag>
+        <tag>API</tag>
       </tags>
   </entry>
 </search>

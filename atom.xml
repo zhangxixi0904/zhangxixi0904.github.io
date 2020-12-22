@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-05T10:42:01.631Z</updated>
+  <updated>2020-12-22T06:43:45.866Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2020/12/05/word2vec/"/>
     <id>http://example.com/2020/12/05/word2vec/</id>
     <published>2020-12-05T01:49:00.000Z</published>
-    <updated>2020-12-05T10:42:01.631Z</updated>
+    <updated>2020-12-22T06:43:45.866Z</updated>
     
     
       
@@ -34,10 +34,16 @@
     
     
     
-    <category term="NLP" scheme="http://example.com/categories/NLP/"/>
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="学习笔记" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
+    
+    <category term="CS224N" scheme="http://example.com/tags/CS224N/"/>
+    
+    <category term="skip-gram" scheme="http://example.com/tags/skip-gram/"/>
+    
+    <category term="CBOW" scheme="http://example.com/tags/CBOW/"/>
     
   </entry>
   
@@ -46,7 +52,7 @@
     <link href="http://example.com/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/"/>
     <id>http://example.com/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/</id>
     <published>2020-12-04T16:00:00.000Z</published>
-    <updated>2020-12-06T02:18:51.989Z</updated>
+    <updated>2020-12-22T06:46:17.663Z</updated>
     
     
       
@@ -59,8 +65,10 @@
     
     
     
-    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    <category term="软件工具" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
     
+    
+    <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
@@ -69,7 +77,7 @@
     <link href="http://example.com/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/"/>
     <id>http://example.com/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</id>
     <published>2020-12-04T16:00:00.000Z</published>
-    <updated>2020-12-08T14:53:35.700Z</updated>
+    <updated>2020-12-22T06:45:49.892Z</updated>
     
     
       
@@ -84,8 +92,10 @@
     
     
     
-    <category term="博客" scheme="http://example.com/categories/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="软件工具" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/"/>
     
+    
+    <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
@@ -94,7 +104,7 @@
     <link href="http://example.com/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/"/>
     <id>http://example.com/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/</id>
     <published>2020-07-03T03:25:00.000Z</published>
-    <updated>2020-12-04T03:09:47.667Z</updated>
+    <updated>2020-12-22T06:45:17.569Z</updated>
     
     
       
@@ -113,8 +123,12 @@
     
     
     
-    <category term="程序设计" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    <category term="408基础" scheme="http://example.com/categories/408%E5%9F%BA%E7%A1%80/"/>
     
+    
+    <category term="入门" scheme="http://example.com/tags/%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="API" scheme="http://example.com/tags/API/"/>
     
   </entry>
   
@@ -123,7 +137,7 @@
     <link href="http://example.com/2019/11/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E6%9C%AF/"/>
     <id>http://example.com/2019/11/29/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%82%BC%E4%B8%B9%E6%9C%AF/</id>
     <published>2019-11-29T03:28:48.000Z</published>
-    <updated>2019-11-29T03:40:46.000Z</updated>
+    <updated>2020-12-22T06:46:53.967Z</updated>
     
     
       
@@ -143,7 +157,7 @@
     <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="trick" scheme="http://example.com/tags/trick/"/>
+    <category term="tricks" scheme="http://example.com/tags/tricks/"/>
     
   </entry>
   
@@ -152,7 +166,7 @@
     <link href="http://example.com/2019/11/27/%E6%8D%9F%E5%A4%B1%E6%9B%B2%E7%BA%BF%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88/"/>
     <id>http://example.com/2019/11/27/%E6%8D%9F%E5%A4%B1%E6%9B%B2%E7%BA%BF%E8%83%BD%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88/</id>
     <published>2019-11-27T03:48:49.000Z</published>
-    <updated>2020-12-05T10:41:17.896Z</updated>
+    <updated>2020-12-22T06:46:44.713Z</updated>
     
     
       
@@ -168,10 +182,12 @@
     
     
     
-    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="trick" scheme="http://example.com/tags/trick/"/>
+    <category term="损失函数" scheme="http://example.com/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"/>
+    
+    <category term="tricks" scheme="http://example.com/tags/tricks/"/>
     
   </entry>
   
@@ -180,7 +196,7 @@
     <link href="http://example.com/2019/11/26/%E7%95%A5%E8%AF%B4PyTorch%E7%9A%84autograd/"/>
     <id>http://example.com/2019/11/26/%E7%95%A5%E8%AF%B4PyTorch%E7%9A%84autograd/</id>
     <published>2019-11-26T14:28:40.000Z</published>
-    <updated>2019-12-06T02:05:55.000Z</updated>
+    <updated>2020-12-22T06:47:48.768Z</updated>
     
     
       
@@ -196,12 +212,14 @@
     
     
     
-    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
     <category term="pytorch" scheme="http://example.com/tags/pytorch/"/>
     
     <category term="反向传播" scheme="http://example.com/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/"/>
+    
+    <category term="API" scheme="http://example.com/tags/API/"/>
     
   </entry>
   
@@ -210,7 +228,7 @@
     <link href="http://example.com/2019/11/25/NIS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
     <id>http://example.com/2019/11/25/NIS%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</id>
     <published>2019-11-25T01:33:21.000Z</published>
-    <updated>2019-12-14T02:18:50.000Z</updated>
+    <updated>2020-12-22T06:44:41.421Z</updated>
     
     
     <summary type="html">&lt;h1&gt;NIS主服务器搭建&lt;/h1&gt;
@@ -229,12 +247,16 @@
     
     
     
-    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    <category term="408基础" scheme="http://example.com/categories/408%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="linux" scheme="http://example.com/tags/linux/"/>
     
     <category term="运维" scheme="http://example.com/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="NIS" scheme="http://example.com/tags/NIS/"/>
+    
+    <category term="安装教程" scheme="http://example.com/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -243,7 +265,7 @@
     <link href="http://example.com/2019/11/25/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2019/11/25/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-11-25T01:33:21.000Z</published>
-    <updated>2020-12-04T03:09:41.944Z</updated>
+    <updated>2020-12-22T06:47:12.804Z</updated>
     
     
       
@@ -261,10 +283,10 @@
     
     
     
-    <category term="Markdown" scheme="http://example.com/categories/Markdown/"/>
+    <category term="大数据开发" scheme="http://example.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="业余" scheme="http://example.com/tags/%E4%B8%9A%E4%BD%99/"/>
+    <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
@@ -273,7 +295,7 @@
     <link href="http://example.com/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://example.com/2019/11/24/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-11-23T17:25:00.000Z</published>
-    <updated>2020-12-05T08:38:28.178Z</updated>
+    <updated>2020-12-22T06:42:13.693Z</updated>
     
     
       
@@ -290,12 +312,12 @@
     
     
     
-    <category term="程序设计" scheme="http://example.com/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    <category term="编程素养" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E7%B4%A0%E5%85%BB/"/>
     
     
     <category term="Git" scheme="http://example.com/tags/Git/"/>
     
-    <category term="程序员素养" scheme="http://example.com/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%B4%A0%E5%85%BB/"/>
+    <category term="入门" scheme="http://example.com/tags/%E5%85%A5%E9%97%A8/"/>
     
   </entry>
   
