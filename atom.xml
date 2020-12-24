@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-22T06:43:45.866Z</updated>
+  <updated>2020-12-24T11:24:27.540Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,18 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>CS224N笔记：word2vec超详细解析</title>
-    <link href="http://example.com/2020/12/05/word2vec/"/>
-    <id>http://example.com/2020/12/05/word2vec/</id>
-    <published>2020-12-05T01:49:00.000Z</published>
-    <updated>2020-12-22T06:43:45.866Z</updated>
+    <title>CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</title>
+    <link href="http://example.com/2020/12/24/Glove/"/>
+    <id>http://example.com/2020/12/24/Glove/</id>
+    <published>2020-12-23T16:00:00.000Z</published>
+    <updated>2020-12-24T11:24:27.540Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;1.</summary>
+    <summary type="html">&lt;h1&gt;1.背景知识&lt;/h1&gt;
+&lt;p&gt;在&lt;a href=&quot;https://www.notion.so/word2vec-ea196141797f4d49bce1de1d8617f197&quot;&gt;word2vec&lt;/a&gt;</summary>
         
       
     
@@ -41,9 +42,67 @@
     
     <category term="CS224N" scheme="http://example.com/tags/CS224N/"/>
     
-    <category term="skip-gram" scheme="http://example.com/tags/skip-gram/"/>
+    <category term="Glove" scheme="http://example.com/tags/Glove/"/>
     
-    <category term="CBOW" scheme="http://example.com/tags/CBOW/"/>
+  </entry>
+  
+  <entry>
+    <title>CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU</title>
+    <link href="http://example.com/2020/12/24/LSTM/"/>
+    <id>http://example.com/2020/12/24/LSTM/</id>
+    <published>2020-12-23T16:00:00.000Z</published>
+    <updated>2020-12-24T12:01:43.865Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;NLP连载系列：&lt;/p&gt;
+&lt;a href=&quot;/2020/12/01/NLP%E5%85%A5%E9%97%A8/&quot; title=&quot;NLP入门：文本特征的表示方式&quot;&gt;NLP入门：文本特征的表示方式&lt;/a&gt;
+&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
+    
+    <category term="CS224N" scheme="http://example.com/tags/CS224N/"/>
+    
+    <category term="RNN" scheme="http://example.com/tags/RNN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</title>
+    <link href="http://example.com/2020/12/24/RNN/"/>
+    <id>http://example.com/2020/12/24/RNN/</id>
+    <published>2020-12-23T16:00:00.000Z</published>
+    <updated>2020-12-24T11:44:40.697Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;CS224N Lecture6</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
+    
+    <category term="CS224N" scheme="http://example.com/tags/CS224N/"/>
+    
+    <category term="RNN" scheme="http://example.com/tags/RNN/"/>
     
   </entry>
   
@@ -73,6 +132,39 @@
   </entry>
   
   <entry>
+    <title>CS224N笔记(一)：word2vec超详细解析</title>
+    <link href="http://example.com/2020/12/05/word2vec/"/>
+    <id>http://example.com/2020/12/05/word2vec/</id>
+    <published>2020-12-04T16:00:00.000Z</published>
+    <updated>2020-12-24T11:34:44.791Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;1.</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
+    
+    <category term="CS224N" scheme="http://example.com/tags/CS224N/"/>
+    
+    <category term="skip-gram" scheme="http://example.com/tags/skip-gram/"/>
+    
+    <category term="CBOW" scheme="http://example.com/tags/CBOW/"/>
+    
+    <category term="word2vec" scheme="http://example.com/tags/word2vec/"/>
+    
+  </entry>
+  
+  <entry>
     <title>hexo图片路径设置</title>
     <link href="http://example.com/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/"/>
     <id>http://example.com/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/</id>
@@ -96,6 +188,34 @@
     
     
     <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NLP入门：文本特征的表示方式</title>
+    <link href="http://example.com/2020/12/01/NLP%E5%85%A5%E9%97%A8/"/>
+    <id>http://example.com/2020/12/01/NLP%E5%85%A5%E9%97%A8/</id>
+    <published>2020-11-30T16:00:00.000Z</published>
+    <updated>2020-12-24T11:34:42.120Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;一、意义&lt;/h1&gt;
+&lt;p&gt;NLP区别与CV的一个重要特征之一，在于模型的输入需要预先处理，从CV转行NLP的炼丹者一开始定会对模型的输入形式感到疑惑。不像CV中模型的输入就是图像的RGB值，本来就是数值型，且像素值可以认为是连续型变量，不需要再做什么处理，最多就是做一下归</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="入门" scheme="http://example.com/tags/%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
     
   </entry>
   
@@ -129,6 +249,34 @@
     <category term="入门" scheme="http://example.com/tags/%E5%85%A5%E9%97%A8/"/>
     
     <category term="API" scheme="http://example.com/tags/API/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>n-gram的原理</title>
+    <link href="http://example.com/2019/12/24/n-gram%E5%8E%9F%E7%90%86/"/>
+    <id>http://example.com/2019/12/24/n-gram%E5%8E%9F%E7%90%86/</id>
+    <published>2019-12-23T16:00:00.000Z</published>
+    <updated>2020-12-24T09:37:12.275Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;1.  共现矩阵&lt;/h1&gt;
+&lt;p&gt;共现矩阵描述的是在一个固定大小的滑动窗口下，两个词同时出现的频次。假设共现矩阵用&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
+    
+    <category term="n-gram" scheme="http://example.com/tags/n-gram/"/>
     
   </entry>
   
