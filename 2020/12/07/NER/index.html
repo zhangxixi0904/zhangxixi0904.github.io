@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    归档: 2019/12 |  黑黑的Blog
+    命名实体分类NER初识 |  黑黑的Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -46,51 +46,245 @@
       
     <main class="content on">
       <section class="outer">
-  
-  <article class="articles">
+  <article
+  id="post-NER"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">2019/12</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2019" class="archive-year">2019</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/12/24/n-gram%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  <time datetime="2019-12-23T16:00:00.000Z" itemprop="datePublished">12/24</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/12/24/n-gram%E5%8E%9F%E7%90%86/"
-    >n-gram的原理</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  命名实体分类NER初识
+</h1>
  
 
     </header>
-    
-    
+     
+    <div class="article-meta">
+      <a href="/2020/12/07/NER/" class="article-date">
+  <time datetime="2020-12-06T16:00:00.000Z" itemprop="datePublished">2020-12-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
   </div>
-</article>
-      
-      
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">266</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-  </div>
-  
-  
+      
+
+
 
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>NLP连载系列：</p>
+<ol>
+<li>
+<a href="/2020/12/07/NLP%E5%85%A5%E9%97%A8/" title="NLP入门：文本特征的表示方式">NLP入门：文本特征的表示方式</a>  
+</li>
+<li>
+<a href="/2020/12/07/NER/" title="命名实体分类NER初识">命名实体分类NER初识</a>
+</li>
+<li>
+<a href="/2020/12/10/n-gram%E5%8E%9F%E7%90%86/" title="n-gram的原理">n-gram的原理</a>  
+</li>
+<li>
+<a href="/2020/12/12/word2vec/" title="CS224N笔记(一)：word2vec超详细解析">CS224N笔记(一)：word2vec超详细解析</a>  
+</li>
+<li>
+<a href="/2020/12/13/Glove/" title="CS224N笔记(二) Lecture1～2 ：深入理解Glove原理">CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</a>   
+</li>
+<li>
+<a href="/2020/12/21/RNN/" title="CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型">CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</a>   
+</li>
+<li>
+<a href="/2020/12/24/LSTM/" title="CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU">CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU</a>  
+</li>
+</ol>
+<p>命名实体分类就是判断一个词是不是属于某个实体的名字，比如人名、地点名、组织名等，这里介绍CS224N中提到的两种简单方法，均是判断一个窗口内的中心词是不是命名实体：</p>
+<ol>
+<li>
+<p>将周边词的词向量做平均池化后，丢入到若干层神经网络后softmax分类或者直接softmax分类。简单但是会损失位置信息</p>
+</li>
+<li>
+<p>将周边词的词向量收尾相连，丢入到若干神经网络后softmax分类，不会损失位置信息但是输入大小的窗口大小成正比，会导致输入向量长度过大：</p>
+<p><img src="/2020/12/07/NER/Untitled.png" alt="NER/Untitled.png"></p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/12/07/NER/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/" rel="tag">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/12/07/NLP%E5%85%A5%E9%97%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            NLP入门：文本特征的表示方式
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/12/05/hexo+typora%E7%9A%84%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">hexo+typora的图片路径问题</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "1Y9hFegQFNbDz9YgYPgYkwM7-gzGzoHsz",
+    app_key: "BlKsp9lPaqY6Nmvd6jRHyUxd",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -243,6 +437,23 @@
 
 <!-- Tocbot -->
 
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
@@ -363,6 +574,11 @@
 <!-- Katex -->
 
 
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
     
 
 

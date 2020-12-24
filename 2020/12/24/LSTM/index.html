@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">17 分钟</span>
+            <span class="post-count">18 分钟</span>
         </span>
     </span>
 </div>
@@ -102,19 +102,36 @@
     <div class="article-entry" itemprop="articleBody">
        
   <p>NLP连载系列：</p>
-<a href="/2020/12/01/NLP%E5%85%A5%E9%97%A8/" title="NLP入门：文本特征的表示方式">NLP入门：文本特征的表示方式</a>  
-<a href="/2019/12/24/n-gram%E5%8E%9F%E7%90%86/" title="n-gram的原理">n-gram的原理</a>  
-<a href="/2020/12/05/word2vec/" title="CS224N笔记(一)：word2vec超详细解析">CS224N笔记(一)：word2vec超详细解析</a>  
-<a href="/2020/12/24/Glove/" title="CS224N笔记(二) Lecture1～2 ：深入理解Glove原理">CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</a>   
-<a href="/2020/12/24/RNN/" title="CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型">CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</a>   
+<ol>
+<li>
+<a href="/2020/12/07/NLP%E5%85%A5%E9%97%A8/" title="NLP入门：文本特征的表示方式">NLP入门：文本特征的表示方式</a>  
+</li>
+<li>
+<a href="/2020/12/07/NER/" title="命名实体分类NER初识">命名实体分类NER初识</a>
+</li>
+<li>
+<a href="/2020/12/10/n-gram%E5%8E%9F%E7%90%86/" title="n-gram的原理">n-gram的原理</a>  
+</li>
+<li>
+<a href="/2020/12/12/word2vec/" title="CS224N笔记(一)：word2vec超详细解析">CS224N笔记(一)：word2vec超详细解析</a>  
+</li>
+<li>
+<a href="/2020/12/13/Glove/" title="CS224N笔记(二) Lecture1～2 ：深入理解Glove原理">CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</a>   
+</li>
+<li>
+<a href="/2020/12/21/RNN/" title="CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型">CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</a>   
+</li>
+<li>
 <a href="/2020/12/24/LSTM/" title="CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU">CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU</a>  
+</li>
+</ol>
 <blockquote>
 <p>本文将介绍两种比RNN更好地应对梯度消失问题的模型结构——LSTM和GRU，文章以CS224N的课件和材料为基础，以图解的形式帮助大家更好地理解这两种模型的结构，并进一步分析他们的优缺点和应用场景。</p>
 </blockquote>
 <h1>一、背景知识</h1>
 <p>循环神经网络RNN由于模型结构上的缺陷，很容易引起梯度爆炸和梯度消失，梯度爆炸可以用梯度截断方法在一定程度上缓解其影响，但是梯度消失几乎是致命缺陷，没有什么好办法可以解决它，这使得训练变得困难，模型很可能只受短时约束，长时约束的作用被大大削弱，学习不到相隔较远的两个词之间的联系。本文介绍的两种新的神经网络结构LSTM和RNN，可以很好地应对这个问题。</p>
 <h1>二、LSTM的原理与结构</h1>
-<h1>1. 模型结构</h1>
+<h2 id="1-模型结构">1.模型结构</h2>
 <p>LSTM在模型结构上相对于RNN而言有两大变动：</p>
 <ol>
 <li>新增了三个独特的门结构，用来控制信息地流动</li>
@@ -289,17 +306,8 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/12/24/Glove/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            CS224N笔记(二) Lecture1～2 ：深入理解Glove原理
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/12/24/RNN/" class="article-nav-link">
+      <a href="/2020/12/21/RNN/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
         <div class="article-nav-title">CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</div>
       </a>

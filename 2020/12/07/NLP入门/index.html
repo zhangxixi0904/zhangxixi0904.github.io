@@ -65,8 +65,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2020/12/01/NLP%E5%85%A5%E9%97%A8/" class="article-date">
-  <time datetime="2020-11-30T16:00:00.000Z" itemprop="datePublished">2020-12-01</time>
+      <a href="/2020/12/07/NLP%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2020-12-06T16:00:00.000Z" itemprop="datePublished">2020-12-07</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.2k</span>
+            <span class="post-count">3.4k</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">11 分钟</span>
+            <span class="post-count">12 分钟</span>
         </span>
     </span>
 </div>
@@ -101,7 +101,31 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>一、意义</h1>
+  <p>NLP连载系列：</p>
+<ol>
+<li>
+<a href="/2020/12/07/NLP%E5%85%A5%E9%97%A8/" title="NLP入门：文本特征的表示方式">NLP入门：文本特征的表示方式</a>  
+</li>
+<li>
+<a href="/2020/12/07/NER/" title="命名实体分类NER初识">命名实体分类NER初识</a>
+</li>
+<li>
+<a href="/2020/12/10/n-gram%E5%8E%9F%E7%90%86/" title="n-gram的原理">n-gram的原理</a>  
+</li>
+<li>
+<a href="/2020/12/12/word2vec/" title="CS224N笔记(一)：word2vec超详细解析">CS224N笔记(一)：word2vec超详细解析</a>  
+</li>
+<li>
+<a href="/2020/12/13/Glove/" title="CS224N笔记(二) Lecture1～2 ：深入理解Glove原理">CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</a>   
+</li>
+<li>
+<a href="/2020/12/21/RNN/" title="CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型">CS224N笔记(三) Lecture 6~7：深入理解循环神经网络RNN模型</a>   
+</li>
+<li>
+<a href="/2020/12/24/LSTM/" title="CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU">CS224N笔记(四) Lecture 7：循环神经网络RNN的进阶——LSTM与GRU</a>  
+</li>
+</ol>
+<h1>一、前言</h1>
 <p>NLP区别与CV的一个重要特征之一，在于模型的输入需要预先处理，从CV转行NLP的炼丹者一开始定会对模型的输入形式感到疑惑。不像CV中模型的输入就是图像的RGB值，本来就是数值型，且像素值可以认为是连续型变量，不需要再做什么处理，最多就是做一下归一化，或者翻转、裁剪等数据增强处理。而NLP输入的是文字，非数值型变量，要如何将文字更加合理地映射成某种数值型变量，是NLP要解决的一个重要问题。</p>
 <p>在NLP中数值型变量一般是以向量的形式展现出来，本文接下来将阐述NLP中出现过的多种词向量表示方式，并阐述词向量好坏的评判标准。</p>
 <h1>二、表示方式</h1>
@@ -166,7 +190,7 @@
 </ul>
 <p>同理由于TF-IDF是词袋模型的改进版，它和n-gram有一样的差异</p>
 <p>关于n-gram的详细解释，请点击另一篇文章：</p>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/n-gram-c84f249ef2284f7a9fdc4894fa369b5a">n-gram原理</a></p>
+<a href="/2020/12/10/n-gram%E5%8E%9F%E7%90%86/" title="n-gram的原理">n-gram的原理</a>  
 <p><strong>优点</strong></p>
 <ol>
 <li>相比起词袋模型和TF-IDF，n-gram考虑了句子中词的顺序；</li>
@@ -180,7 +204,7 @@
 <h3 id="ii-word2vec">ii. word2vec</h3>
 <p>两种形式，CBOW利用上下文的词预测中心词，SKIP-GRAM利用中心词预测上下文的词。</p>
 <p>关于word2vec的详细解释，请点击另一篇文章：</p>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/word2vec-ea196141797f4d49bce1de1d8617f197">word2vec</a></p>
+<a href="/2020/12/12/word2vec/" title="CS224N笔记(一)：word2vec超详细解析">CS224N笔记(一)：word2vec超详细解析</a>  
 <p><strong>优点</strong></p>
 <ol>
 <li>考虑到词语的上下文，学习到了语义和语法的信息；</li>
@@ -195,7 +219,7 @@
 <h3 id="iii-glove">iii. GloVe</h3>
 <p>GloVe 是斯坦福大学Jeffrey、Richard 等提供的一种词向量表示算法，GloVe 的全称是Global Vectors for Word Representation，是一个基于全局词频统计（count-based &amp; overall staticstics）的词表征（word representation）算法。该算法综合了global matrix factorization（全局矩阵分解） 和 local context window（局部上下文窗口） 两种方法的优点。</p>
 <p>关于Glove的详细解释，请点击另一篇文章：</p>
-<p><a target="_blank" rel="noopener" href="https://www.notion.so/Glove-2e45cdc1156d473ebcfd30d99e313ba2">Glove</a></p>
+<a href="/2020/12/13/Glove/" title="CS224N笔记(二) Lecture1～2 ：深入理解Glove原理">CS224N笔记(二) Lecture1～2 ：深入理解Glove原理</a>  
 <h3 id="iv-elmo">iv. ELMO</h3>
 <p>word2vec 和 glove 算法得到的词向量都是静态词向量（静态词向量会把多义词的语义进行融合，训练结束之后不会根据上下文进行改变），静态词向量无法解决多义词的问题（如：“我今天买了7斤苹果” 和 “我今天买了苹果7” 中的 苹果 就是一个多义词）。而ELMO模型进行训练的词向量可以解决多义词的问题。</p>
 <p>该算法的精髓是：用语言模型训练神经网络，在使用word embedding 时，单词已经具备上下文信息，这个时候神经网络可以根据上下文信息对word embedding 进行调整，这样经过调整之后的word embedding 更能表达在这个上下文中的具体含义，这就解决了静态词向量无法表示多义词的问题。</p>
@@ -203,12 +227,12 @@
 <p>词向量的评判标准可以分为内部标准(intrinsic criteria or intrinsic evaluation)和外部标准(external criteria or external evaluation)。</p>
 <h2 id="1-内部标准">1. 内部标准</h2>
 <p>所谓的内部标准，就是不考虑下游任务，仅从词向量本身是否能够准确地表征语义来评判词向量的好坏，比如词向量间的距离是不是能够很好地表示语义上的联系，这里举CS224N上在讲解word2vec时很爱说的一个例子：</p>
-<p><img src="/2020/12/01/NLP%E5%85%A5%E9%97%A8/Untitled.png" alt></p>
+<p><img src="/2020/12/07/NLP%E5%85%A5%E9%97%A8/Untitled.png" alt></p>
 <p>考虑man、woman、king三个词，我们可以计算woman和man在向量空间上的差<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mo>=</mo><msub><mi>w</mi><mrow><mi>w</mi><mi>o</mi><mi>m</mi><mi>a</mi><mi>n</mi></mrow></msub><mo>−</mo><msub><mi>w</mi><mrow><mi>m</mi><mi>a</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">diff = w_{woman}-w_{man}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，来表示woman和man间的差异性，如果king在向量空间上加上这个差，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>k</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></msub><mo>+</mo><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">w_{king}+diff</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8694379999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>，那么直觉上应该得到queue的向量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>q</mi><mi>u</mi><mi>e</mi><mi>u</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_{queue}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，因为男人对女人、国王对女王。我们希望最终训练出来的词向量能够很好地表示这种词之间的联系，这样的词向量才是好的词向量。</p>
-<p><img src="/2020/12/01/NLP%E5%85%A5%E9%97%A8/Untitled%201.png" alt></p>
+<p><img src="/2020/12/07/NLP%E5%85%A5%E9%97%A8/Untitled%201.png" alt></p>
 <p>在讲解glove时也有这种类似的分析：各种词从原型变换到比较级再变换到最高级，在向量空间上如果具有相同的变换方向，那么这样的词向量是好的词向量。像上述这种评价方式也叫做类比评估(analogy evaluation)，它对词向量好坏的评价仅仅在向量空间倒来倒去，因此算是一种<strong>内部标准</strong>。</p>
 <p>另外一种内部标准的评价方式就要借用人手工的评判了：给定两个词，让多个人去给这两个词的相似性打分，然后同样是计算这两个词的向量距离，看看它跟人类打的分是不是比较吻合。</p>
-<p><img src="/2020/12/01/NLP%E5%85%A5%E9%97%A8/Untitled%202.png" alt></p>
+<p><img src="/2020/12/07/NLP%E5%85%A5%E9%97%A8/Untitled%202.png" alt></p>
 <h2 id="2-外部标准">2.外部标准</h2>
 <p>外部标准就是通过词向量在下游任务表现的优劣来评价词向量的好坏了，常见的任务有：</p>
 <ol>
@@ -291,7 +315,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/12/01/NLP%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/12/07/NLP%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,19 +328,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/12/05/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E8%AE%BE%E7%BD%AE/" class="article-nav-link">
+      <a href="/2020/12/10/n-gram%E5%8E%9F%E7%90%86/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            hexo图片路径设置
+            n-gram的原理
           
         </div>
       </a>
     
     
-      <a href="/2020/07/03/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" class="article-nav-link">
+      <a href="/2020/12/07/NER/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Linux网络编程</div>
+        <div class="article-nav-title">命名实体分类NER初识</div>
       </a>
     
   </nav>
